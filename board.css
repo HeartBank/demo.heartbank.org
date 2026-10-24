@@ -21,7 +21,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:26p
 .wordmark svg{width:var(--emblem-box);height:var(--emblem-box);color:var(--accent);vertical-align:baseline;
   margin-top:calc(var(--emblem-box)*-.09312);margin-bottom:calc(var(--emblem-box)*-.15333);
   margin-left:calc(var(--emblem-box)*-.15343 + 1px);margin-right:calc(var(--emblem-box)*-.09312 - 1px)}
-.wordmark sup{font-size:.4em;font-weight:500;vertical-align:.9em;margin-left:.04em}
+.wordmark sup{font-size:.72em;font-weight:500;vertical-align:.42em;margin-left:.05em;line-height:0}
 .tools{display:flex;gap:8px;align-items:center}
 .seg{display:inline-flex;border:1px solid var(--line-strong);border-radius:var(--r-pill);padding:3px;font-size:.8rem}
 .seg span{padding:5px 12px;border-radius:var(--r-pill);color:var(--ink-dim)}
@@ -47,6 +47,7 @@ section{padding:56px 0;border-top:1px solid var(--line)}
 .step b{position:absolute;top:12px;left:18px;color:var(--accent);font-family:var(--font-display);font-weight:600;font-size:3rem;line-height:1}
 .foot-row{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin:0 0 22px}
 .foot-row p{margin:0}
+.who{font-size:1rem}
 .cols{display:grid;gap:16px}.desk .cols{grid-template-columns:repeat(3,1fr);gap:24px}.desk .cols4{grid-template-columns:repeat(4,1fr);gap:20px}
 .nw{white-space:nowrap}
 .sm{font-size:.45em;font-weight:500;vertical-align:.75em;margin-left:.05em;line-height:0}
@@ -66,7 +67,7 @@ section{padding:56px 0;border-top:1px solid var(--line)}
 .tag{display:inline-block;font-family:var(--font-mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;border:1px dashed var(--line-strong);border-radius:var(--r-pill);padding:3px 10px;color:var(--ink-dim)}
 a.link{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
 footer{border-top:1px solid var(--line);padding:36px 0 56px;color:var(--ink-dim);font-size:.9rem}
-footer p{max-width:70ch;margin:0 0 14px}
+footer p{margin:0 0 14px}
 .sb{display:grid;gap:20px}.desk .sb{grid-template-columns:repeat(2,1fr)}
 .sb figure{margin:0;border:1px solid var(--line);border-radius:var(--r-card);padding:16px;background:var(--surface)}
 .sb figcaption{margin-top:10px;color:var(--ink-dim);font-size:.95rem}

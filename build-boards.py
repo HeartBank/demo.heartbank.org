@@ -49,7 +49,7 @@ T = {
         "else": [("Time", "Chronicle, for the hours we give each other", "heartbank.com"),
                  ("Papers", "The institution's published positions", "heartbank.net"),
                  ("Shops", "Local shops that take thanks", "heartbank.ceo")],
-        "who": "Founded by Thon Ly. Miss Aquarius℠ is the CEO.",
+        "who1": "Founded by Thon Ly", "who2": "Miss Aquarius℠ is the CEO",
         "disc": ("HeartBank® is a data bank of gratitude. It is not a chartered bank or financial institution; it does not "
                  "provide banking services, hold deposits, or extend credit. This page takes no payments. In the app, money "
                  "moves by KHQR straight between people's own bank accounts, and HeartBank never holds it. HeartBank's role is "
@@ -85,7 +85,7 @@ T = {
         "else": [("ពេលវេលា", "Chronicle ស្រាប់ម៉ោងដែលយើងផ្តល់ដល់គ្នា", "heartbank.com"),
                  ("ឯកសារ", "មតិដែលស្ថាប័នបានផ្សាយ", "heartbank.net"),
                  ("ហាង", "ហាងទំនិញដែលទទួលការអរគុណ", "heartbank.ceo")],
-        "who": "បង្កើតដោយ Thon Ly។ Miss Aquarius℠ ជានាយកប្រតិបត្តិ។",
+        "who1": "ស្ថាបនិកគឺ Thon Ly", "who2": "Miss Aquarius℠ ជាប្រធានប្រតិបត្តិ",
         "disc": ("HeartBank® ជាឃ្លាំងទិន្នន័យនៃការដឹងគុណ។ "
                  "វាមិនមែនជាធនាគារមានអាជ្ញាប័ណ្ណ ឬស្ថាប័នហិរញ្ញវត្ថុទេ ហើយមិនផ្តល់សេវាធនាគារ "
                  "មិនទទួលរក្សាប្រាក់បញ្ចើ ឬផ្តល់ឥណទានឡើយ។ ទំព័រនេះមិនទទួលការបង់ប្រាក់ទេ។ "
@@ -121,7 +121,7 @@ T["km"].update({
     "else": [("ពេលវេលា", "Chronicle សម្រាប់ម៉ោងដែលយើងឲ្យគ្នាទៅវិញទៅមក", "heartbank.com"),
              ("ឯកសារ", "ជំហរដែលស្ថាប័នបានផ្សាយ", "heartbank.net"),
              ("ហាង", "ហាងក្នុងតំបន់ដែលទទួលការអរគុណ", "heartbank.ceo")],
-    "who": "ស្ថាបនិកគឺ Thon Ly។ Miss Aquarius℠ ជាប្រធានប្រតិបត្តិ។",
+    "who1": "ស្ថាបនិកគឺ Thon Ly", "who2": "Miss Aquarius℠ ជាប្រធានប្រតិបត្តិ",
     "disc": ("HeartBank® ជាឃ្លាំងទិន្នន័យនៃការដឹងគុណ។ វាមិនមែនជាធនាគារមានអាជ្ញាប័ណ្ណ ឬស្ថាប័នហិរញ្ញវត្ថុទេ ហើយមិនផ្តល់សេវាធនាគារ "
              "មិនទទួលរក្សាប្រាក់បញ្ញើ ឬផ្តល់ឥណទានឡើយ។ ទំព័រនេះមិនទទួលការបង់ប្រាក់ទេ។ ក្នុងកម្មវិធី ប្រាក់ផ្លាស់ទីតាម KHQR "
              "ដោយផ្ទាល់រវាងគណនីធនាគាររបស់មនុស្សម្នាក់ៗ ហើយ HeartBank មិនកាន់កាប់ប្រាក់ឡើយ។ "
@@ -178,7 +178,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:26p
 .wordmark svg{width:var(--emblem-box);height:var(--emblem-box);color:var(--accent);vertical-align:baseline;
   margin-top:calc(var(--emblem-box)*-.09312);margin-bottom:calc(var(--emblem-box)*-.15333);
   margin-left:calc(var(--emblem-box)*-.15343 + 1px);margin-right:calc(var(--emblem-box)*-.09312 - 1px)}
-.wordmark sup{font-size:.4em;font-weight:500;vertical-align:.9em;margin-left:.04em}
+.wordmark sup{font-size:.72em;font-weight:500;vertical-align:.42em;margin-left:.05em;line-height:0}
 .tools{display:flex;gap:8px;align-items:center}
 .seg{display:inline-flex;border:1px solid var(--line-strong);border-radius:var(--r-pill);padding:3px;font-size:.8rem}
 .seg span{padding:5px 12px;border-radius:var(--r-pill);color:var(--ink-dim)}
@@ -204,6 +204,7 @@ section{padding:56px 0;border-top:1px solid var(--line)}
 .step b{position:absolute;top:12px;left:18px;color:var(--accent);font-family:var(--font-display);font-weight:600;font-size:3rem;line-height:1}
 .foot-row{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin:0 0 22px}
 .foot-row p{margin:0}
+.who{font-size:1rem}
 .cols{display:grid;gap:16px}.desk .cols{grid-template-columns:repeat(3,1fr);gap:24px}.desk .cols4{grid-template-columns:repeat(4,1fr);gap:20px}
 .nw{white-space:nowrap}
 .sm{font-size:.45em;font-weight:500;vertical-align:.75em;margin-left:.05em;line-height:0}
@@ -223,7 +224,7 @@ section{padding:56px 0;border-top:1px solid var(--line)}
 .tag{display:inline-block;font-family:var(--font-mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;border:1px dashed var(--line-strong);border-radius:var(--r-pill);padding:3px 10px;color:var(--ink-dim)}
 a.link{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
 footer{border-top:1px solid var(--line);padding:36px 0 56px;color:var(--ink-dim);font-size:.9rem}
-footer p{max-width:70ch;margin:0 0 14px}
+footer p{margin:0 0 14px}
 .sb{display:grid;gap:20px}.desk .sb{grid-template-columns:repeat(2,1fr)}
 .sb figure{margin:0;border:1px solid var(--line);border-radius:var(--r-card);padding:16px;background:var(--surface)}
 .sb figcaption{margin-top:10px;color:var(--ink-dim);font-size:.95rem}
@@ -359,6 +360,13 @@ def spot(kind):
     return '<svg class="spot" viewBox="0 0 120 72" role="img" aria-hidden="true">%s</svg>' % "".join(parts)
 
 
+def who_parts(t, anchor=None):
+    """The two founder-line items, with the two names linked (a styled span on the drawing, a real link on the site)."""
+    a = anchor or (lambda href, text: '<span class="link a">%s</span>' % text)
+    return (t["who1"].replace("Thon Ly", a("https://thonly.org/", "Thon Ly")),
+            t["who2"].replace("Miss Aquarius", a("https://missaquarius.org/", "Miss Aquarius")))
+
+
 def disc_html(t):
     """The footer disclaimer, its first sentence held on one line (white-space: nowrap)."""
     d = t["disc"]
@@ -409,7 +417,7 @@ def page(lang, theme, size, kind="landing"):
                 '<section><h2 class="%s">%s</h2><div class="cols">%s</div></section>'
                 '<section><h2 class="%s">%s</h2><p class="lede%s" style="margin-top:0">%s</p><p style="margin:18px 0 0"><span class="link a">%s</span> <span class="note" style="margin-left:8px">%s</span></p></section>'
                 '<section><h2 class="%s">%s</h2><div class="cols">%s</div></section>'
-                '<footer><div class="foot-row"><p class="lede%s">%s</p>%s</div><p class="%s">%s</p><p class="note">%s</p></footer>'
+                '<footer><div class="foot-row"><p class="who%s">%s</p><p class="who%s">%s</p>%s</div><p class="%s">%s</p><p class="note">%s</p></footer>'
                 % (head, kmc.strip(), t["h1"], kmc, t["sub"], kmc, t["cta"], kmc, t["cta_note"], ph, intro_art,
                    kmc.strip(), t["how_h"], steps,
                    kmc.strip(), t["why_h"], why,
@@ -417,7 +425,7 @@ def page(lang, theme, size, kind="landing"):
                    kmc.strip(), t["things_h"], things,
                    kmc.strip(), t["is_h"], kmc, t["is_p"], t["is_link"], t["is_link_note"],
                    kmc.strip(), t["else_h"], elsewhere,
-                   kmc, t["who"], seg_t,
+                   kmc, who_parts(t)[0], kmc, who_parts(t)[1], seg_t,
                    kmc.strip(), disc_html(t),
                    ("[ Khmer is our own placeholder until a native reader approves it ]" if lang == "km" else "[ Drawing. This page takes no payments. ]")))
     body = body.replace("\u2120", '<span class="sm">\u2120</span>')
