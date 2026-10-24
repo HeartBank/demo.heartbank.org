@@ -492,7 +492,7 @@ function render(t){
   mv(tr2,x,y);op(tr2,1);
   var k=P(t,12.5,14),sx=O1[0]-15,sy=O1[1];mv(hr,sx+(KEEP[0]-sx)*k,sy+(KEEP[1]-sy)*k,1+.1*k);op(hr,1)}
  else{op(tr2,0);op(hr,0)}
- if(en){var v=P(t,24,25);en.style.opacity=v;en.style.visibility=v>0?'visible':'hidden'}
+ if(en){var v=P(t,22.5,23.5);en.style.opacity=v;en.style.visibility=v>0?'visible':'hidden'}
  op($('card'),P(t,6,7));drawn($('ln1'),38,P(t,7,8.3));drawn($('ln2'),24,P(t,8.3,9.3));
  var h=P(t,9.5,10.3),ch=$('cardHeart');ch.setAttribute('transform','translate(26 1) scale('+(.85*h)+')');op(ch,h);
  caps.forEach(function(c,i){var s=T[i],o=Math.min(P(t,s[0],s[0]+.5),i===T.length-1?1:1-P(t,s[1]-.5,s[1]));c.style.opacity=t>=s[0]&&t<=s[1]?o:0});
