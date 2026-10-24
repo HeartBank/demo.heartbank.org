@@ -177,12 +177,14 @@ section{padding:56px 0;border-top:1px solid var(--line)}
 .poster{border:1px solid var(--line);background:var(--surface);border-radius:var(--r-card);padding:28px;display:flex;flex-direction:column;gap:20px}
 .poster svg{width:100%;height:auto;display:block}
 .steps{display:grid;gap:14px}.desk .steps{grid-template-columns:repeat(3,1fr)}
-.step{font-size:1.05rem;color:var(--ink-dim);border:1px solid var(--line);border-radius:var(--r-card);background:var(--surface);padding:18px 18px 22px}
+.step{position:relative;font-size:1.05rem;color:var(--ink-dim);border:1px solid var(--line);border-radius:var(--r-card);background:var(--surface);padding:18px 18px 22px}
 .step svg{width:100%;height:auto;display:block;margin-bottom:10px}
-.step b{display:block;color:var(--accent);font-family:var(--font-display);font-weight:600;font-size:3rem;line-height:1;margin-bottom:6px}
+.step b{position:absolute;top:12px;left:18px;color:var(--accent);font-family:var(--font-display);font-weight:600;font-size:3rem;line-height:1}
 .foot-row{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin:0 0 22px}
 .foot-row p{margin:0}
 .cols{display:grid;gap:16px}.desk .cols{grid-template-columns:repeat(3,1fr);gap:24px}.desk .cols4{grid-template-columns:repeat(4,1fr);gap:20px}
+.sm{font-size:.45em;font-weight:500;vertical-align:.75em;margin-left:.05em;line-height:0}
+.spot{width:100%;height:84px;display:block;margin:0 0 14px;background:var(--wash);border-radius:var(--r-control)}
 .share{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line-strong);border-radius:var(--r-pill);padding:6px 13px;font-size:.85rem;color:var(--ink)}
 .share svg{width:16px;height:16px;flex:none}
 .phone .share{padding:7px 9px}.phone .share .lbl{display:none}
@@ -250,6 +252,61 @@ def flow_svg(frame, w=520, h=230):
     return "".join(parts)
 
 
+def _heart(cx, cy, k=1.0, fill="var(--accent)"):
+    return ('<path transform="translate(%s %s) scale(%s)" d="M0 8 C-9 1 -8 -7 -3 -7 C-1 -7 0 -5.5 0 -4.5 C0 -5.5 1 -7 3 -7 C8 -7 9 1 0 8Z" fill="%s"/>' % (cx, cy, k, fill))
+
+
+def _coin(cx, cy, r=8):
+    return ('<circle cx="%s" cy="%s" r="%s" fill="var(--accent)"/><circle cx="%s" cy="%s" r="%s" fill="none" stroke="var(--accent-ink)" stroke-width="1.4" opacity=".7"/>' % (cx, cy, r, cx, cy, r * .62))
+
+
+def _jar(cx, cy):
+    return ('<rect x="%s" y="%s" width="30" height="32" rx="8" fill="var(--surface-2)" stroke="var(--accent)" stroke-width="2.5"/>'
+            '<rect x="%s" y="%s" width="36" height="9" rx="3" fill="var(--accent)"/>' % (cx - 15, cy - 14, cx - 18, cy - 20)) + _heart(cx, cy + 3, 1.6)
+
+
+def spot(kind):
+    """A small drawn picture for an info card: viewBox 120x72, literal attributes only, no real people."""
+    P = person
+    parts = []
+    if kind == "help":
+        parts += [P(38, 38, "#c0603f", "#d9a47a", "#2a1d17", "bun", .8), _heart(92, 22, 1.5), _coin(92, 52)]
+    elif kind == "shared":
+        parts += [_jar(60, 40), P(22, 42, "#4f7a62", "#b98a63", "#c9c4c0", "grey", .42), P(98, 42, "var(--accent)", "#e0b48a", "#2a1d17", "pigtails", .42)]
+    elif kind == "child":
+        parts += [P(34, 38, "var(--accent)", "#e0b48a", "#2a1d17", "pigtails", .8),
+                  '<path d="M76 24 A14 14 0 0 0 76 52 Z" fill="var(--accent)"/>',
+                  '<path d="M80 24 A14 14 0 0 1 80 52 Z" fill="none" stroke="var(--accent)" stroke-width="2.5"/>',
+                  '<path d="M98 38 H112 M106 32 L112 38 L106 44" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>']
+    elif kind == "charge":
+        parts += [P(34, 38, "#c0603f", "#d9a47a", "#2a1d17", "bun", .8), P(80, 44, "#4f7a62", "#b98a63", "#c9c4c0", "grey", .42), P(102, 44, "var(--accent)", "#e0b48a", "#2a1d17", "pigtails", .42)]
+    elif kind == "jar":
+        parts += [_jar(60, 40), _heart(28, 22, 1.0), _heart(94, 18, .9), _heart(90, 54, .8)]
+    elif kind == "account":
+        parts += [P(36, 38, "#c0603f", "#d9a47a", "#2a1d17", "bun", .8),
+                  '<rect x="68" y="22" width="40" height="28" rx="6" fill="var(--bg)" stroke="var(--accent)" stroke-width="2.5"/>'
+                  '<line x1="74" y1="32" x2="100" y2="32" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/>'
+                  '<line x1="74" y1="41" x2="92" y2="41" stroke="var(--line-strong)" stroke-width="3" stroke-linecap="round"/>']
+    elif kind == "sprout":
+        parts += [P(34, 40, "var(--accent)", "#e0b48a", "#2a1d17", "pigtails", .8),
+                  '<path d="M72 60 H100" stroke="var(--line-strong)" stroke-width="3" stroke-linecap="round"/>'
+                  '<path d="M86 60 V38" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" fill="none"/>'
+                  '<path d="M86 46 C75 46 71 38 73 31 C82 31 86 38 86 46Z" fill="var(--accent)"/>'
+                  '<path d="M86 41 C97 41 101 33 99 26 C90 26 86 33 86 41Z" fill="#4f7a62"/>']
+    elif kind == "pair":
+        parts += [P(34, 38, "#c0603f", "#d9a47a", "#2a1d17", "bun", .6), P(86, 38, "#4f7a62", "#b98a63", "#c9c4c0", "grey", .6), _heart(60, 36, 1.7)]
+    elif kind == "book":
+        parts += ['<path d="M60 20 C48 13 32 13 18 19 V56 C32 50 48 50 60 57 Z" fill="var(--surface-2)" stroke="var(--accent)" stroke-width="2.5" stroke-linejoin="round"/>'
+                  '<path d="M60 20 C72 13 88 13 102 19 V56 C88 50 72 50 60 57 Z" fill="var(--bg)" stroke="var(--accent)" stroke-width="2.5" stroke-linejoin="round"/>'
+                  '<path d="M28 28 C34 26 42 26 50 29 M28 37 C34 35 42 35 50 38 M70 29 C78 26 86 26 92 28 M70 38 C78 35 86 35 92 37" fill="none" stroke="var(--line-strong)" stroke-width="2.5" stroke-linecap="round"/>']
+    elif kind == "shop":
+        parts += ['<rect x="26" y="30" width="68" height="28" rx="3" fill="var(--surface-2)" stroke="var(--accent)" stroke-width="2.5"/>'
+                  '<path d="M20 30 L28 12 H92 L100 30 Z" fill="var(--accent)"/>'
+                  '<path d="M20 30 H100" stroke="var(--accent-ink)" stroke-width="1.5" opacity=".5"/>'
+                  '<rect x="52" y="38" width="16" height="20" rx="2" fill="var(--accent)"/>']
+    return '<svg class="spot" viewBox="0 0 120 72" role="img" aria-hidden="true">%s</svg>' % "".join(parts)
+
+
 def page(lang, theme, size, kind="landing"):
     t = T[lang]
     kmc = " km" if lang == "km" else ""
@@ -270,9 +327,9 @@ def page(lang, theme, size, kind="landing"):
         hero_art = '<div class="art"><div class="poster">%s<p class="note%s" style="margin:0">[ %s ]</p></div></div>' % (flow_svg(4), kmc, t["how_poster"])
         steps = "".join('<div class="step%s">%s<b>%d</b>%s</div>' % (kmc, flow_svg(i + 1), i + 1, s) for i, s in enumerate(t["steps"]))
         ben = "".join('<li class="%s">%s</li>' % (kmc.strip(), b) for b in t["ben"])
-        why = "".join('<div class="card"><h3 class="%s">%s</h3><p class="%s">%s</p></div>' % (kmc.strip(), n, kmc.strip(), d) for n, d in t["why"])
-        things = "".join('<div class="card"><h3>%s</h3><p class="%s">%s</p></div>' % (n, kmc.strip(), d) for n, d in t["things"])
-        elsewhere = "".join('<div class="card"><h3 class="%s">%s</h3><p class="%s">%s</p><p class="note">%s</p></div>' % (kmc.strip(), n, kmc.strip(), d, h) for n, d, h in t["else"])
+        why = "".join('<div class="card">%s<h3 class="%s">%s</h3><p class="%s">%s</p></div>' % (spot(k), kmc.strip(), n, kmc.strip(), d) for k, (n, d) in zip(("help", "shared", "child", "charge"), t["why"]))
+        things = "".join('<div class="card">%s<h3>%s</h3><p class="%s">%s</p></div>' % (spot(k), n, kmc.strip(), d) for k, (n, d) in zip(("jar", "account", "sprout"), t["things"]))
+        elsewhere = "".join('<div class="card">%s<h3 class="%s">%s</h3><p class="%s">%s</p><p class="note">%s</p></div>' % (spot(k), kmc.strip(), n, kmc.strip(), d, h) for k, (n, d, h) in zip(("pair", "book", "shop"), t["else"]))
         body = ('%s<section class="hero"><div><h1 class="%s">%s</h1><p class="lede%s">%s</p><p style="margin:32px 0 0"><span class="btn%s">%s</span></p><p class="note%s">%s</p>%s</div>%s</section>'
                 '<section><h2 class="%s">%s</h2><div class="steps">%s</div></section>'
                 '<section><h2 class="%s">%s</h2><div class="cols cols4">%s</div></section>'
@@ -291,6 +348,7 @@ def page(lang, theme, size, kind="landing"):
                    kmc, t["who"], seg_t,
                    kmc.strip(), t["disc"],
                    ("[ Khmer is our own placeholder until a native reader approves it ]" if lang == "km" else "[ Drawing. This page takes no payments. ]")))
+    body = body.replace("\u2120", '<span class="sm">\u2120</span>')
     width = 1440 if size == "desk" else 390
     return ('<!doctype html>\n<html lang="%s" data-theme="%s">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=%d">\n'
             '<meta name="googlebot" content="noindex,nofollow"><meta name="bingbot" content="noindex,nofollow">\n'

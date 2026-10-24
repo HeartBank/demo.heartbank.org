@@ -21,6 +21,7 @@ page = """<!doctype html>
 <meta name="bingbot" content="noindex,nofollow">
 <meta name="slurp" content="noindex,nofollow">
 <meta name="yandex" content="noindex,nofollow">
+<script src="./analytics.js"></script>
 <title>HeartBank&#174; Treasury: landing drawings</title>
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://demo.heartbank.org/">
@@ -53,10 +54,14 @@ small{display:block;margin-top:2rem;color:var(--dim)}</style>
 <p>The screens for the new heartbank.org: English and Khmer, light and a dark pass, and the storyboard for its one motion explainer.</p>
 <a class="start" href="wall.html"><b>Start here</b><br>Every screen on one wall. Drag to pan, pinch to zoom, tap a screen to open it.</a>
 <ul>%s</ul>
-<small>These are drawings. They charge nobody, and nothing here is live. The Khmer is our own placeholder until a native reader approves it. Hidden from search by named crawler; shareable by link.</small>
+<small>These are drawings. They charge nobody, and nothing here is live. The Khmer is our own placeholder until a native reader approves it. Hidden from search by named crawler; shareable by link. This site counts visits without cookies.</small>
 </main>
 </body>
 </html>
 """ % rows
 io.open(os.path.join(HERE, "index.html"), "w", encoding="utf-8").write(page)
 print("index.html written: %d artboards" % len(boards))
+
+# Re-stamp the tracker reference from the file's own hash so a change is never served stale.
+import subprocess as _sp
+_sp.run(["python3", os.path.join(HERE, "stamp-analytics.py")], check=True)

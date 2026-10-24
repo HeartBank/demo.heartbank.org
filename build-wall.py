@@ -200,4 +200,5 @@ out = out.replace("__TABS__", "".join(tabs)).replace("__PAGES__", "".join(frames
 io.open(os.path.join(HERE, "wall.html"), "w", encoding="utf-8").write(out)
 print("wall.html written — %d artboards, %d notes, %d pages" % (len(boards), len(notes), len(pages)))
 
-# Analytics is not wired yet on this demo (phase 5); the ceo demo re-stamps its tracker here.
+import subprocess as _sp
+_sp.run(["python3", os.path.join(HERE, "stamp-analytics.py")], check=True)
