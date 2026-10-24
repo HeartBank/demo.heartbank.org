@@ -193,9 +193,9 @@ h2.km{font-size:1.7rem;letter-spacing:0}
 .btn{display:inline-block;background:var(--accent);color:var(--accent-ink);border-radius:var(--r-control);padding:15px 28px;font-weight:600;font-size:1.05rem}
 .note{color:var(--ink-dim);font-family:var(--font-mono);font-size:.8rem;margin:12px 0 0}
 section{padding:56px 0;border-top:1px solid var(--line)}
-.hero{padding:40px 0 64px;border:0}
-.desk .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
-.hero .art{border:1px solid var(--edge);background:var(--wash);border-radius:var(--r-card);padding:24px}
+.intro{padding:40px 0 64px;border:0}
+.desk .intro{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+.intro .art{border:1px solid var(--edge);background:var(--wash);border-radius:var(--r-card);padding:24px}
 .poster{border:1px solid var(--line);background:var(--surface);border-radius:var(--r-card);padding:28px;display:flex;flex-direction:column;gap:20px}
 .poster svg{width:100%;height:auto;display:block}
 .steps{display:grid;gap:14px}.desk .steps{grid-template-columns:repeat(3,1fr)}
@@ -380,18 +380,18 @@ def page(lang, theme, size, kind="landing"):
                    t["st_copied"], share, kmc, t["copied"],
                    ("[ Khmer is our own placeholder until a native reader approves it ]" if lang == "km" else "[ Drawing. This page takes no payments. ]")))
     elif kind == "storyboard":
-        body = ('%s<section class="hero" style="padding-bottom:24px"><h1 class="%s">%s</h1>%s</section><div class="sb">%s</div><p class="%s" style="margin:24px 0 0;color:var(--ink-dim)">%s</p><p class="note">%s</p>'
+        body = ('%s<section class="intro" style="padding-bottom:24px"><h1 class="%s">%s</h1>%s</section><div class="sb">%s</div><p class="%s" style="margin:24px 0 0;color:var(--ink-dim)">%s</p><p class="note">%s</p>'
                 % (head, kmc.strip(), t["sb_h"], ph,
                    "".join('<figure>%s<figcaption><b class="mono">%d</b> · <span class="%s">%s</span></figcaption></figure>' % (flow_svg(i + 1), i + 1, kmc.strip(), t["sb_cap"][i]) for i in range(4)),
                    kmc.strip(), t["sb_legend"], t["sb_note"]))
     else:
-        hero_art = '<div class="art"><div class="poster">%s<p class="note%s" style="margin:0">[ %s ]</p></div></div>' % (flow_svg(4), kmc, t["how_poster"])
+        intro_art = '<div class="art"><div class="poster">%s<p class="note%s" style="margin:0">[ %s ]</p></div></div>' % (flow_svg(4), kmc, t["how_poster"])
         steps = "".join('<div class="step%s">%s<b>%d</b>%s</div>' % (kmc, flow_svg(i + 1), i + 1, s) for i, s in enumerate(t["steps"]))
         ben = "".join('<li class="%s">%s</li>' % (kmc.strip(), b) for b in t["ben"])
         why = "".join('<div class="card">%s<h3 class="%s">%s</h3><p class="%s">%s</p></div>' % (spot(k), kmc.strip(), n, kmc.strip(), d) for k, (n, d) in zip(("help", "shared", "child", "charge"), t["why"]))
         things = "".join('<div class="card">%s<h3>%s</h3><p class="%s">%s</p></div>' % (spot(k), n, kmc.strip(), d) for k, (n, d) in zip(("jar", "account", "sprout"), t["things"]))
         elsewhere = "".join('<div class="card">%s<h3 class="%s">%s</h3><p class="%s">%s</p><p class="note">%s</p></div>' % (spot(k), kmc.strip(), n, kmc.strip(), d, h) for k, (n, d, h) in zip(("pair", "book", "shop"), t["else"]))
-        body = ('%s<section class="hero"><div><h1 class="%s">%s</h1><p class="lede%s">%s</p><p style="margin:32px 0 0"><span class="btn%s">%s</span></p><p class="note%s">%s</p>%s</div>%s</section>'
+        body = ('%s<section class="intro"><div><h1 class="%s">%s</h1><p class="lede%s">%s</p><p style="margin:32px 0 0"><span class="btn%s">%s</span></p><p class="note%s">%s</p>%s</div>%s</section>'
                 '<section><h2 class="%s">%s</h2><div class="steps">%s</div></section>'
                 '<section><h2 class="%s">%s</h2><div class="cols cols4">%s</div></section>'
                 '<section><h2 class="%s">%s</h2><ul class="ben">%s</ul></section>'
@@ -399,7 +399,7 @@ def page(lang, theme, size, kind="landing"):
                 '<section><h2 class="%s">%s</h2><p class="lede%s" style="margin-top:0">%s</p><p style="margin:18px 0 0"><span class="link a">%s</span> <span class="note" style="margin-left:8px">%s</span></p></section>'
                 '<section><h2 class="%s">%s</h2><div class="cols">%s</div></section>'
                 '<footer><div class="foot-row"><p class="lede%s">%s</p>%s</div><p class="%s">%s</p><p class="note">%s</p></footer>'
-                % (head, kmc.strip(), t["h1"], kmc, t["sub"], kmc, t["cta"], kmc, t["cta_note"], ph, hero_art,
+                % (head, kmc.strip(), t["h1"], kmc, t["sub"], kmc, t["cta"], kmc, t["cta_note"], ph, intro_art,
                    kmc.strip(), t["how_h"], steps,
                    kmc.strip(), t["why_h"], why,
                    kmc.strip(), t["ben_h"], ben,
