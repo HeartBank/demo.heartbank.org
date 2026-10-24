@@ -89,6 +89,24 @@
    "h": 1220,
    "title": "10 · Login signpost, not found, link copied, Khmer, phone",
    "page": "page-1"
+  },
+  {
+   "file": "Explainer.html",
+   "x": 10350,
+   "y": 0,
+   "w": 1440,
+   "h": 2600,
+   "title": "11 · Motion explainer, English (plays once; ?t=SECONDS shows any frame)",
+   "page": "page-1"
+  },
+  {
+   "file": "ExplainerKm.html",
+   "x": 11910,
+   "y": 0,
+   "w": 1440,
+   "h": 2600,
+   "title": "12 · Motion explainer, Khmer (plays once; ?t=SECONDS shows any frame)",
+   "page": "page-1"
   }
  ],
  "annotations": [],

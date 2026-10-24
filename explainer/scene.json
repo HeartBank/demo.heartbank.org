@@ -1,0 +1,83 @@
+{
+  "brief": {
+    "audience": "a layperson (the /build lay-reader default), in English or Khmer",
+    "where": "inline on heartbank.org (top of the page, beside the headline) and on demo.heartbank.org/Explainer.html and ExplainerKm.html",
+    "length_s": 26,
+    "mechanism": "A coin and a thank-you travel straight between two people while a shared card records the thanks; the receiver keeps half and passes half on."
+  },
+  "budget": {
+    "max_gzip_kb": 12,
+    "note": "inline SVG + one small script; no video, no image, no font beyond the page's own"
+  },
+  "doctrine": "Nothing is animated as a loss, and the picture carries no meter, progress bar, rank or count of people; no water; the figures are drawn, not real; no model is named. It plays once and rests on its last frame, with a Play-again button, never a loop.",
+  "static_t": 24,
+  "strings": {
+    "s1": {
+      "en": "Two people. One gives money, with a thank-you.",
+      "km": "មនុស្សពីរនាក់។ ម្នាក់ឲ្យប្រាក់ ជាមួយពាក្យអរគុណ។"
+    },
+    "s2": {
+      "en": "The thanks is written in a shared record.",
+      "km": "ការអរគុណត្រូវបានសរសេរក្នុងកំណត់ត្រារួម។"
+    },
+    "s3": {
+      "en": "The receiver keeps half and passes half on to a third person.",
+      "km": "អ្នកទទួលទុកពាក់កណ្តាល ហើយឲ្យពាក់កណ្តាលទៀតបន្តទៅមនុស្សទីបី។"
+    },
+    "s4": {
+      "en": "The ring closes. Thanks keep moving.",
+      "km": "រង្វង់បិទ។ ការអរគុណបន្តធ្វើដំណើរ។"
+    },
+    "play": {
+      "en": "Play",
+      "km": "លេង"
+    },
+    "pause": {
+      "en": "Pause",
+      "km": "ផ្អាក"
+    },
+    "replay": {
+      "en": "Play again",
+      "km": "លេងម្តងទៀត"
+    },
+    "alt": {
+      "en": "Two people and an elder in a ring: a coin and a heart pass between them while a shared card records the thanks.",
+      "km": "មនុស្សបីនាក់ជារង្វង់៖ កាក់ និងបេះដូងឆ្លងកាត់ពួកគេ ហើយប័ណ្ណរួមកត់ត្រាការអរគុណ។"
+    }
+  },
+  "scenes": [
+    {
+      "id": "s1",
+      "t": [
+        0,
+        6
+      ],
+      "caption": "s1"
+    },
+    {
+      "id": "s2",
+      "t": [
+        6,
+        11
+      ],
+      "caption": "s2"
+    },
+    {
+      "id": "s3",
+      "t": [
+        11,
+        18
+      ],
+      "caption": "s3"
+    },
+    {
+      "id": "s4",
+      "t": [
+        18,
+        26
+      ],
+      "caption": "s4",
+      "static": true
+    }
+  ]
+}

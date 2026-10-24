@@ -398,6 +398,10 @@ def page(lang, theme, size, kind="landing"):
                    t["st_nf"], k, t["nf_h"], kmc, t["nf_p"], kmc, t["nf_home"], kmc, t["login_btn"],
                    t["st_copied"], share, kmc, t["copied"],
                    ("[ Khmer is our own placeholder until a native reader approves it ]" if lang == "km" else "[ Drawing. This page takes no payments. ]")))
+    elif kind == "motion":
+        body = ('%s<section class="intro" style="padding:24px 0 8px;display:block"><h1 class="%s" style="font-size:2rem">%s</h1><div style="max-width:560px;margin-top:20px">%s</div>'
+                '<p class="note">%s</p></section>'
+                % (head, kmc.strip(), t["how_h"], explainer_fragment(lang), t["sb_legend"]))
     elif kind == "storyboard":
         body = ('%s<section class="intro" style="padding-bottom:24px"><h1 class="%s">%s</h1>%s</section><div class="sb">%s</div><p class="%s" style="margin:24px 0 0;color:var(--ink-dim)">%s</p><p class="note">%s</p>'
                 % (head, kmc.strip(), t["sb_h"], ph,
@@ -437,6 +441,110 @@ def page(lang, theme, size, kind="landing"):
             % (t["lang"], theme, width, CSSV, "heartbank.org landing (%s, %s, %s)" % (lang, theme, size), cls, body))
 
 
+# ── the motion explainer (the scene file is the source of truth: explainer/scene.json) ───────────────────────────
+SCENE = json.load(io.open(os.path.join(HERE, "explainer", "scene.json"), encoding="utf-8"))
+
+EXPLAINER_CSS = """
+.exp{margin:0}
+.exp-stage svg{width:100%;height:auto;display:block}
+.exp-caps{display:none;position:relative;min-height:3.4em;margin-top:6px}
+.exp.is-live .exp-caps{display:block}
+.exp-caps span{position:absolute;left:0;right:0;top:0;opacity:0;font-size:1.05rem;color:var(--ink)}
+.exp-ctl{display:none;margin-top:6px}
+.exp.is-live .exp-ctl{display:block}
+.exp-btn{font:inherit;font-size:.85rem;color:var(--ink);background:none;border:1px solid var(--line-strong);border-radius:var(--r-pill);padding:6px 16px;cursor:pointer}
+.exp .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (prefers-reduced-motion:reduce){.exp-caps,.exp-ctl{display:none!important}}
+"""
+
+# One pure function of t. A frame is render(t); the player only advances t, so ?t=<seconds> reproduces any frame
+# (the MP4 export in /motion §7 relies on it). Nothing here counts down, fills, or leaves anyone empty-handed.
+EXPLAINER_JS = r"""
+(function(){var root=document.querySelector('[data-explainer]');if(!root)return;
+var stage=root.querySelector('.exp-stage'),tpl=root.querySelector('template'),caps=[].slice.call(root.querySelectorAll('[data-cap]')),btn=root.querySelector('[data-toggle]');
+var q=new URLSearchParams(location.search),fixed=q.has('t')?parseFloat(q.get('t')):null,END=@END@,
+reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(reduce&&fixed===null)return; /* the static frame already in the markup IS the reduced-motion frame */
+stage.innerHTML=tpl.innerHTML;root.classList.add('is-live');var svg=stage.firstElementChild;
+var $=function(i){return svg.querySelector('[data-id="'+i+'"]')},pA=$('pA'),pB=$('pB'),pC=$('pC'),LA=pA.getTotalLength(),LB=pB.getTotalLength(),LC=pC.getTotalLength();
+var cl=function(x){return x<0?0:x>1?1:x},ez=function(u){return u<.5?2*u*u:1-Math.pow(-2*u+2,2)/2},P=function(t,a,b){return ez(cl((t-a)/(b-a)))};
+var pt=function(p,L,u){var s=p.getPointAtLength(L*u);return[s.x,s.y]},mv=function(e,x,y,s){e.setAttribute('transform','translate('+x+' '+y+')'+(s?' scale('+s+')':''))},op=function(e,v){e.setAttribute('opacity',v)};
+var drawn=function(e,L,u,o){e.style.strokeDasharray=L;e.style.strokeDashoffset=L*(1-u);if(e.hasAttribute('marker-end'))e.setAttribute('marker-end',u>.97?'url(#arA)':'none');op(e,u>0?(o==null?1:o):0)};
+var O1=pt(pA,LA,1),B0=pt(pB,LB,0),KEEP=[492,169];
+var T=@SCENES@;
+function render(t){
+ op($('elder'),P(t,11,12));
+ drawn(pA,LA,P(t,1,4),t<11?1:1-.7*P(t,11,12));
+ drawn(pB,LB,P(t,12.5,16),t<18?1:1-.7*P(t,18,19));
+ drawn(pC,LC,P(t,19,22.5));
+ var tr1=$('trav1');if(t>=1&&t<12){var a=pt(pA,LA,P(t,1,4));mv(tr1,a[0],a[1]);op(tr1,1)}else op(tr1,0);
+ var tr2=$('trav2'),hr=$('halfR');
+ if(t>=12){var x,y;
+  if(t<12.5){var u=P(t,12,12.5);x=O1[0]+(B0[0]-O1[0])*u;y=O1[1]+(B0[1]-O1[1])*u}
+  else if(t<16){var b=pt(pB,LB,P(t,12.5,16));x=b[0];y=b[1]}
+  else if(t<19){var e=pt(pB,LB,1);x=e[0];y=e[1]}
+  else{var c=pt(pC,LC,P(t,19,22.5));x=c[0];y=c[1]}
+  mv(tr2,x,y);op(tr2,1);
+  var k=P(t,12.5,14),sx=O1[0]-15,sy=O1[1];mv(hr,sx+(KEEP[0]-sx)*k,sy+(KEEP[1]-sy)*k,1+.1*k);op(hr,1)}
+ else{op(tr2,0);op(hr,0)}
+ op($('card'),P(t,6,7));drawn($('ln1'),38,P(t,7,8.3));drawn($('ln2'),24,P(t,8.3,9.3));
+ var h=P(t,9.5,10.3),ch=$('cardHeart');ch.setAttribute('transform','translate(26 1) scale('+(.85*h)+')');op(ch,h);
+ caps.forEach(function(c,i){var s=T[i],o=Math.min(P(t,s[0],s[0]+.5),i===T.length-1?1:1-P(t,s[1]-.5,s[1]));c.style.opacity=t>=s[0]&&t<=s[1]?o:0});
+}
+var lbl=function(k){return btn.getAttribute('data-l-'+k)};
+if(fixed!==null){render(fixed);if(btn)btn.hidden=true;return}
+var t0=0,raf=0,last=0,playing=false;
+function tick(now){if(!playing)return;var t=(now-last)/1000+t0;if(t>=END){t=END;playing=false;btn.textContent=lbl('replay')}render(t);if(playing)raf=requestAnimationFrame(tick);else t0=t}
+function start(from){t0=from;last=performance.now();playing=true;btn.textContent=lbl('pause');raf=requestAnimationFrame(tick)}
+btn.addEventListener('click',function(){if(playing){playing=false;cancelAnimationFrame(raf);t0=Math.min(END,(performance.now()-last)/1000+t0);btn.textContent=lbl('play')}else start(t0>=END?0:t0)});
+render(0);btn.textContent=lbl('play');
+if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){if(es[0].isIntersecting&&!playing&&t0===0){start(0);io.disconnect()}},{threshold:.55});io.observe(root)}else start(0);
+})();
+"""
+
+
+def explainer_svg_animated():
+    a, b, c = (90, 172), (260, 44), (430, 172)
+    bg = '<circle cx="%s" cy="%s" r="15" fill="var(--surface)"/>'
+    stroke = 'fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" marker-end="url(#arA)"'
+    return ('<svg viewBox="0 0 520 230" role="img" aria-label="%s">'
+            '<defs><marker id="arA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="var(--accent)"/></marker></defs>'
+            '%s%s<g data-id="elder" opacity="0">%s</g>'
+            '<path data-id="pA" d="M128 158 C190 128 330 128 392 158" %s opacity="0"/>'
+            '<path data-id="pB" d="M412 142 C384 112 346 84 308 62" %s opacity="0"/>'
+            '<path data-id="pC" d="M212 62 C174 84 136 112 108 142" %s opacity="0"/>'
+            '<g data-id="card" opacity="0" transform="translate(260 204)"><rect x="-46" y="-17" width="92" height="34" rx="8" fill="var(--bg)" stroke="var(--accent)" stroke-width="2"/>'
+            '<line data-id="ln1" x1="-32" y1="-4" x2="6" y2="-4" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" opacity="0"/>'
+            '<line data-id="ln2" x1="-32" y1="7" x2="-8" y2="7" stroke="var(--line-strong)" stroke-width="3" stroke-linecap="round" opacity="0"/>'
+            '<g data-id="cardHeart" opacity="0" transform="translate(26 1) scale(0)">%s</g></g>'
+            '<g data-id="trav1" opacity="0">%s%s%s%s</g>'
+            '<g data-id="trav2" opacity="0">%s%s<path d="M-15 -10 A10 10 0 0 0 -15 10 Z" fill="var(--accent)"/>%s</g>'
+            '<path data-id="halfR" opacity="0" d="M0 -10 A10 10 0 0 1 0 10 Z" fill="var(--accent)"/>'
+            '</svg>') % (
+        "{ALT}", parent(*a), child(*c), elder(*b), stroke, stroke, stroke, _heart(0, 0, 1.0),
+        bg % (-15, 0), bg % (15, -3), _coin(-15, 0, 10), _heart(15, -3, 1.5),
+        bg % (-15, 0), bg % (15, -3), _heart(15, -3, 1.5))
+
+
+def explainer_fragment(lang):
+    """The explainer as one self-contained fragment: the STATIC frame in the markup (no script, reduced motion, crawlers),
+    the animated SVG in a <template> the player swaps in, four captions, one button, and a screen-reader list."""
+    st = SCENE["strings"]
+    km = " km" if lang == "km" else ""
+    caps = "".join('<span data-cap class="%s">%s</span>' % (km.strip(), st[s["caption"]][lang]) for s in SCENE["scenes"])
+    sr = "".join("<li>%s</li>" % st[s["caption"]][lang] for s in SCENE["scenes"])
+    alt = st["alt"][lang].replace('"', "&quot;")
+    scenes = json.dumps([s["t"] for s in SCENE["scenes"]])
+    js = EXPLAINER_JS.replace("@END@", str(SCENE["brief"]["length_s"])).replace("@SCENES@", scenes)
+    static = flow_svg(4).replace('role="img" aria-hidden="true"', 'role="img" aria-label="%s"' % alt)
+    return ('<figure class="exp" data-explainer data-lang="%s"><div class="exp-stage">%s</div>'
+            '<template>%s</template><div class="exp-caps%s" aria-hidden="true">%s</div>'
+            '<div class="exp-ctl"><button type="button" class="exp-btn%s" data-toggle data-l-play="%s" data-l-pause="%s" data-l-replay="%s">%s</button></div>'
+            '<ol class="sr">%s</ol><style>%s</style><script>%s</script></figure>'
+            % (lang, static, explainer_svg_animated().replace("{ALT}", alt), km, caps, km, st["play"][lang], st["pause"][lang], st["replay"][lang],
+               st["play"][lang], sr, EXPLAINER_CSS, js))
+
+
 BOARDS = [
     # file, lang, theme, size, kind, title
     ("LandingEnDesktop.html", "en", "light", "desk", "landing", "1 · Landing, English, desktop"),
@@ -449,6 +557,8 @@ BOARDS = [
     ("ExplainerStoryboardKm.html", "km", "light", "desk", "storyboard", "8 · Explainer storyboard, Khmer"),
     ("StatesEn.html", "en", "light", "phone", "states", "9 · Login signpost, not found, link copied, English, phone"),
     ("StatesKm.html", "km", "light", "phone", "states", "10 · Login signpost, not found, link copied, Khmer, phone"),
+    ("Explainer.html", "en", "light", "desk", "motion", "11 · Motion explainer, English (plays once; ?t=SECONDS shows any frame)"),
+    ("ExplainerKm.html", "km", "light", "desk", "motion", "12 · Motion explainer, Khmer (plays once; ?t=SECONDS shows any frame)"),
 ]
 
 HEIGHTS = {}
