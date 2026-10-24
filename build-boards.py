@@ -56,7 +56,8 @@ T = {
                  "to keep the record of thanks; financial services are not provided by HeartBank."),
         "ph": "",
         "sb_h": "Explainer storyboard",
-        "sb_cap": ["Two people. One gives.", "The thanks is written in a shared record.", "The receiver passes it on to a third person.", "The ring closes. Thanks keep moving."],
+        "sb_cap": ["Two people. One gives money, with a thank-you.", "The thanks is written in a shared record.", "The receiver keeps half and passes half on to a third person.", "The ring closes. Thanks keep moving."],
+        "sb_legend": "Heart: the thank-you. Coin: the money. Card: the shared record. The coin goes straight between people. Nothing in the middle holds it.",
         "sb_note": "Static equivalent under reduced motion: frame 4. The people are drawn figures, never real ones. No clock, counter or water appears in any frame.",
     },
     "km": {
@@ -127,8 +128,9 @@ T["km"].update({
              "តួនាទីរបស់ HeartBank គឺរក្សាកំណត់ត្រានៃការអរគុណ។"),
     "ph": "ភាសាខ្មែរនេះជាសេចក្តីព្រាងរបស់យើង រង់ចាំការពិនិត្យពីអ្នកភាសាខ្មែរ",
     "sb_h": "ផ្ទាំងរូបរឿងនៃវីដេអូពន្យល់",
-    "sb_cap": ["មនុស្សពីរនាក់។ ម្នាក់ឲ្យ។", "ការអរគុណត្រូវបានសរសេរក្នុងកំណត់ត្រារួម។",
-               "អ្នកទទួលឲ្យបន្តទៅមនុស្សទីបី។", "រង្វង់បិទ។ ការអរគុណបន្តធ្វើដំណើរ។"],
+    "sb_legend": "បេះដូង៖ ពាក្យអរគុណ។ កាក់៖ ប្រាក់។ ប័ណ្ណ៖ កំណត់ត្រារួម។ កាក់ទៅដោយផ្ទាល់រវាងមនុស្ស គ្មានអ្វីនៅចន្លោះកាន់វាឡើយ។",
+    "sb_cap": ["មនុស្សពីរនាក់។ ម្នាក់ឲ្យប្រាក់ ជាមួយពាក្យអរគុណ។", "ការអរគុណត្រូវបានសរសេរក្នុងកំណត់ត្រារួម។",
+               "អ្នកទទួលទុកពាក់កណ្តាល ហើយឲ្យពាក់កណ្តាលទៀតបន្តទៅមនុស្សទីបី។", "រង្វង់បិទ។ ការអរគុណបន្តធ្វើដំណើរ។"],
     "sb_note": "ប្រសិនបើបិទចលនា បង្ហាញរូបទី ៤។ មនុស្សជារូបគំនូរ មិនមែនមនុស្សពិតទេ។ គ្មាននាឡិកា ឧបករណ៍រាប់ ឬទឹកក្នុងរូបណាមួយឡើយ។",
 })
 
@@ -230,24 +232,50 @@ def elder(cx, cy):   return person(cx, cy, "#4f7a62", "#b98a63", "#c9c4c0", "gre
 def child(cx, cy):   return person(cx, cy, "var(--accent)", "#e0b48a", "#2a1d17", "pigtails", .9)
 
 
+def _trav(x, y, half=False):
+    """What travels on an arrow: a heart (the thank-you) and a coin (the money), or half a coin."""
+    bg = '<circle cx="%s" cy="%s" r="15" fill="var(--surface)"/>'
+    out = [bg % (x - 15, y), bg % (x + 15, y - 3)]
+    if half:
+        out.append('<path d="M%s %s A10 10 0 0 0 %s %s Z" fill="var(--accent)"/>' % (x - 15, y - 10, x - 15, y + 10))
+    else:
+        out.append(_coin(x - 15, y, 10))
+    out.append(_heart(x + 15, y - 3, 1.5))
+    return "".join(out)
+
+
 def flow_svg(frame, w=520, h=230):
-    """frame 1-4 of the explainer; literal attributes only, never dependent on animation.
-    A (90,170) gives to C (430,170); C passes on to B (260,60); B closes the ring back to A."""
+    """Frames 1-4 of the explainer; literal attributes only, never dependent on animation.
+    A parent (90,172) gives to a child C (430,172); C keeps half and passes half on to an elder B (260,44);
+    B closes the ring back to A. Heart = the thank-you, coin = the money, card = the shared record.
+    The coin travels STRAIGHT between people: nothing in the middle holds it."""
     a, b, c = (90, 172), (260, 44), (430, 172)
-    arrow = ('<path d="%s" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" marker-end="url(#ar%d)"/>')
+    def arrow(d, strong=True):
+        return ('<path d="%s" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" opacity="%s" marker-end="url(#ar%d)"/>'
+                % (d, "1" if strong else ".3", frame))
     parts = ['<svg viewBox="0 0 %d %d" role="img" aria-hidden="true">' % (w, h)]
     parts.append('<defs><marker id="ar%d" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="var(--accent)"/></marker></defs>' % frame)
     parts.append(parent(*a)); parts.append(child(*c))
     if frame >= 3:
         parts.append(elder(*b))
-    parts.append(arrow % ("M128 158 C190 128 330 128 392 158", frame))
+    first = "M128 158 C190 128 330 128 392 158"
+    second = "M412 142 C384 112 346 84 308 62"
+    third = "M212 62 C174 84 136 112 108 142"
+    parts.append(arrow(first, frame <= 2))
+    if frame <= 2:
+        parts.append(_trav(260, 136))
     if frame >= 2:
         parts.append('<g transform="translate(260 204)"><rect x="-46" y="-17" width="92" height="34" rx="8" fill="var(--bg)" stroke="var(--accent)" stroke-width="2"/>'
-                     '<line x1="-30" y1="-4" x2="30" y2="-4" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/><line x1="-30" y1="7" x2="12" y2="7" stroke="var(--line-strong)" stroke-width="3" stroke-linecap="round"/></g>')
+                     '<line x1="-32" y1="-4" x2="6" y2="-4" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/>'
+                     '<line x1="-32" y1="7" x2="-8" y2="7" stroke="var(--line-strong)" stroke-width="3" stroke-linecap="round"/>' + _heart(26, 1, .85) + '</g>')
     if frame >= 3:
-        parts.append(arrow % ("M412 142 C384 112 346 84 308 62", frame))
+        parts.append(arrow(second, frame == 3))
+        if frame == 3:
+            parts.append(_trav(364, 99, half=True))
+            parts.append('<path d="M492 158 A11 11 0 0 1 492 180 Z" fill="var(--accent)"/>')  # the half the child keeps
     if frame == 4:
-        parts.append(arrow % ("M212 62 C174 84 136 112 108 142", frame))
+        parts.append(arrow(third))
+        parts.append(_trav(156, 99, half=True))
     parts.append('</svg>')
     return "".join(parts)
 
@@ -319,10 +347,10 @@ def page(lang, theme, size, kind="landing"):
              '<span class="lbl%s">%s</span></span>' % (kmc, t["share"]))
     head = ('<header><div class="wordmark">%s</div><div class="tools">%s%s</div></header>' % (mark(), seg_l, share))
     if kind == "storyboard":
-        body = ('%s<section class="hero" style="padding-bottom:24px"><h1 class="%s">%s</h1>%s</section><div class="sb">%s</div><p class="note">%s</p>'
+        body = ('%s<section class="hero" style="padding-bottom:24px"><h1 class="%s">%s</h1>%s</section><div class="sb">%s</div><p class="%s" style="margin:24px 0 0;color:var(--ink-dim)">%s</p><p class="note">%s</p>'
                 % (head, kmc.strip(), t["sb_h"], ph,
                    "".join('<figure>%s<figcaption><b class="mono">%d</b> · <span class="%s">%s</span></figcaption></figure>' % (flow_svg(i + 1), i + 1, kmc.strip(), t["sb_cap"][i]) for i in range(4)),
-                   t["sb_note"]))
+                   kmc.strip(), t["sb_legend"], t["sb_note"]))
     else:
         hero_art = '<div class="art"><div class="poster">%s<p class="note%s" style="margin:0">[ %s ]</p></div></div>' % (flow_svg(4), kmc, t["how_poster"])
         steps = "".join('<div class="step%s">%s<b>%d</b>%s</div>' % (kmc, flow_svg(i + 1), i + 1, s) for i, s in enumerate(t["steps"]))
