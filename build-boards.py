@@ -399,9 +399,8 @@ def page(lang, theme, size, kind="landing"):
                    t["st_copied"], share, kmc, t["copied"],
                    ("[ Khmer is our own placeholder until a native reader approves it ]" if lang == "km" else "[ Drawing. This page takes no payments. ]")))
     elif kind == "motion":
-        body = ('%s<section class="intro" style="padding:24px 0 8px;display:block"><h1 class="%s" style="font-size:2rem">%s</h1><div style="max-width:560px;margin-top:20px">%s</div>'
-                '<p class="note">%s</p></section>'
-                % (head, kmc.strip(), t["how_h"], explainer_fragment(lang), t["sb_legend"]))
+        body = ('%s<section class="intro" style="padding:24px 0 8px;display:block"><h1 class="%s" style="font-size:2rem">%s</h1><div class="art" style="max-width:560px;margin-top:20px">%s</div></section>'
+                % (head, kmc.strip(), t["how_h"], explainer_fragment(lang)))
     elif kind == "storyboard":
         body = ('%s<section class="intro" style="padding-bottom:24px"><h1 class="%s">%s</h1>%s</section><div class="sb">%s</div><p class="%s" style="margin:24px 0 0;color:var(--ink-dim)">%s</p><p class="note">%s</p>'
                 % (head, kmc.strip(), t["sb_h"], ph,
@@ -450,8 +449,9 @@ EXPLAINER_CSS = """
 .exp-caps{display:none;position:relative;min-height:3.4em;margin-top:6px}
 .exp.is-live .exp-caps{display:block}
 .exp-caps span{position:absolute;left:0;right:0;top:0;opacity:0;font-size:1.05rem;color:var(--ink)}
-.exp-ctl{display:none;margin-top:6px}
+.exp-ctl{display:none;margin:0 0 10px;text-align:right}
 .exp.is-live .exp-ctl{display:block}
+.exp-legend{margin:14px 2px 0}
 .exp-btn{font:inherit;font-size:.85rem;color:var(--ink);background:none;border:1px solid var(--line-strong);border-radius:var(--r-pill);padding:6px 16px;cursor:pointer}
 .exp .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 @media (prefers-reduced-motion:reduce){.exp-caps,.exp-ctl{display:none!important}}
@@ -537,12 +537,14 @@ def explainer_fragment(lang):
     scenes = json.dumps([s["t"] for s in SCENE["scenes"]])
     js = EXPLAINER_JS.replace("@END@", str(SCENE["brief"]["length_s"])).replace("@SCENES@", scenes)
     static = flow_svg(4).replace('role="img" aria-hidden="true"', 'role="img" aria-label="%s"' % alt)
-    return ('<figure class="exp" data-explainer data-lang="%s"><div class="exp-stage">%s</div>'
-            '<template>%s</template><div class="exp-caps%s" aria-hidden="true">%s</div>'
+    legend = T[lang]["sb_legend"]
+    return ('<figure class="exp" data-explainer data-lang="%s">'
             '<div class="exp-ctl"><button type="button" class="exp-btn%s" data-toggle data-l-play="%s" data-l-pause="%s" data-l-replay="%s">%s</button></div>'
+            '<div class="poster"><div class="exp-stage">%s</div><template>%s</template><div class="exp-caps%s" aria-hidden="true">%s</div></div>'
+            '<p class="note exp-legend%s">%s</p>'
             '<ol class="sr">%s</ol><style>%s</style><script>%s</script></figure>'
-            % (lang, static, explainer_svg_animated().replace("{ALT}", alt), km, caps, km, st["play"][lang], st["pause"][lang], st["replay"][lang],
-               st["play"][lang], sr, EXPLAINER_CSS, js))
+            % (lang, km, st["play"][lang], st["pause"][lang], st["replay"][lang], st["play"][lang],
+               static, explainer_svg_animated().replace("{ALT}", alt), km, caps, km, legend, sr, EXPLAINER_CSS, js))
 
 
 BOARDS = [
