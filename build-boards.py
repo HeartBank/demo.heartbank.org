@@ -37,8 +37,8 @@ T = {
                    ("Re-Thank Foundation℠", "Where a child learns to pass thanks on. Yours to give, never yours to keep.")],
         "is_h": "What it is, and what it is not",
         "is_p": "HeartBank keeps the record. Your own bank accounts and the KHQR code move the money. This page takes no payments.",
-        "is_link": "Read the research paper",
-        "is_link_note": "[ ONE paper link goes here, never the research index ]",
+        "is_link": "Read the essay: The Gift of Gratitude",
+        "is_link_note": "thonly.org/research/the-gift-of-gratitude",
         "else_h": "Elsewhere",
         "else": [("Time", "Chronicle, for the hours we give each other", "heartbank.com"),
                  ("Papers", "The institution's published positions", "heartbank.net"),
@@ -104,7 +104,7 @@ T["km"].update({
                ("Personal Account℠", "កន្លែងផ្ទាល់ខ្លួនរបស់អ្នកសម្រាប់ឲ្យ និងទទួល។"),
                ("Re-Thank Foundation℠", "កន្លែងដែលកុមាររៀនឲ្យការអរគុណបន្ត។ ជារបស់អ្នកសម្រាប់ឲ្យ មិនមែនសម្រាប់រក្សាទុកទេ។")],
     "is_p": "HeartBank រក្សាកំណត់ត្រា។ គណនីធនាគាររបស់អ្នក និងកូដ KHQR ជាអ្នកផ្លាស់ទីប្រាក់។ ទំព័រនេះមិនទទួលការបង់ប្រាក់ទេ។",
-    "is_link_note": "[ តំណភ្ជាប់ឯកសារមួយ មិនមែនបញ្ជីស្រាវជ្រាវទាំងមូលទេ ]",
+    "is_link_note": "thonly.org/research/the-gift-of-gratitude",
     "else": [("ពេលវេលា", "Chronicle សម្រាប់ម៉ោងដែលយើងឲ្យគ្នាទៅវិញទៅមក", "heartbank.com"),
              ("ឯកសារ", "ជំហរដែលស្ថាប័នបានផ្សាយ", "heartbank.net"),
              ("ហាង", "ហាងក្នុងតំបន់ដែលទទួលការអរគុណ", "heartbank.ceo")],
@@ -165,7 +165,11 @@ section{padding:56px 0;border-top:1px solid var(--line)}
 .poster{border:1px solid var(--line);background:var(--surface);border-radius:var(--r-card);padding:28px;display:flex;flex-direction:column;gap:20px}
 .poster svg{width:100%;height:auto;display:block}
 .steps{display:grid;gap:14px}.desk .steps{grid-template-columns:repeat(3,1fr)}
-.step{font-size:.95rem;color:var(--ink-dim)} .step b{display:block;color:var(--accent);font-family:var(--font-mono);font-size:.78rem;letter-spacing:.06em;margin-bottom:2px}
+.step{font-size:1.05rem;color:var(--ink-dim);border:1px solid var(--line);border-radius:var(--r-card);background:var(--surface);padding:18px 18px 22px}
+.step svg{width:100%;height:auto;display:block;margin-bottom:10px}
+.step b{display:block;color:var(--accent);font-family:var(--font-display);font-weight:600;font-size:3rem;line-height:1;margin-bottom:6px}
+.foot-row{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin:0 0 22px}
+.foot-row p{margin:0}
 .cols{display:grid;gap:16px}.desk .cols{grid-template-columns:repeat(3,1fr);gap:24px}
 .card{border:1px solid var(--line);border-radius:var(--r-card);padding:22px;background:var(--surface)}
 .card h3{font-family:var(--font-display);font-size:1.3rem;margin:0 0 6px;font-weight:600}
@@ -220,11 +224,10 @@ def page(lang, theme, size, kind="landing"):
     kmc = " km" if lang == "km" else ""
     cls = "desk" if size == "desk" else "phone"
     seg_l = '<div class="seg"><span%s>EN</span><span%s class="km">ខ្មែរ</span></div>' % (' class="on"' if lang == "en" else "", ' class="on"' if lang == "km" else "")
-    seg_t = '<div class="seg"><span>Auto</span><span%s>Light</span><span%s>Dark</span></div>' % (' class="on"' if theme == "light" else "", ' class="on"' if theme == "dark" else "")
-    if size == "phone":
-        seg_t = '<div class="seg"><span>◐</span></div>'
+    tl = ("Auto", "Light", "Dark") if lang == "en" else ("ស្វ័យប្រវត្តិ", "ភ្លឺ", "ងងឹត")
+    seg_t = '<div class="seg%s"><span>%s</span><span%s>%s</span><span%s>%s</span></div>' % (kmc, tl[0], ' class="on"' if theme == "light" else "", tl[1], ' class="on"' if theme == "dark" else "", tl[2])
     ph = ('<p class="note km">[ %s ]</p>' % t["ph"]) if t["ph"] else ""
-    head = ('<header><div class="wordmark">%s</div><div class="tools">%s%s</div></header>' % (mark(), seg_l, seg_t))
+    head = ('<header><div class="wordmark">%s</div><div class="tools">%s</div></header>' % (mark(), seg_l))
     if kind == "storyboard":
         body = ('%s<section class="hero" style="padding-bottom:24px"><h1 class="%s">%s</h1>%s</section><div class="sb">%s</div><p class="note">%s</p>'
                 % (head, kmc.strip(), t["sb_h"], ph,
@@ -232,7 +235,7 @@ def page(lang, theme, size, kind="landing"):
                    t["sb_note"]))
     else:
         hero_art = '<div class="art"><div class="poster">%s<p class="note%s" style="margin:0">[ %s ]</p></div></div>' % (flow_svg(4), kmc, t["how_poster"])
-        steps = "".join('<div class="step%s"><b>%d</b>%s</div>' % (kmc, i + 1, s) for i, s in enumerate(t["steps"]))
+        steps = "".join('<div class="step%s">%s<b>%d</b>%s</div>' % (kmc, flow_svg(i + 1), i + 1, s) for i, s in enumerate(t["steps"]))
         ben = "".join('<li class="%s">%s</li>' % (kmc.strip(), b) for b in t["ben"])
         things = "".join('<div class="card"><h3>%s</h3><p class="%s">%s</p></div>' % (n, kmc.strip(), d) for n, d in t["things"])
         elsewhere = "".join('<div class="card"><h3 class="%s">%s</h3><p class="%s">%s</p><p class="note">%s</p></div>' % (kmc.strip(), n, kmc.strip(), d, h) for n, d, h in t["else"])
@@ -240,17 +243,16 @@ def page(lang, theme, size, kind="landing"):
                 '<section><h2 class="%s">%s</h2><div class="steps">%s</div></section>'
                 '<section><h2 class="%s">%s</h2><ul class="ben">%s</ul></section>'
                 '<section><h2 class="%s">%s</h2><div class="cols">%s</div></section>'
-                '<section><h2 class="%s">%s</h2><p class="lede%s" style="margin-top:0">%s</p><p style="margin:18px 0 0"><span class="link a">%s</span> <span class="tag">%s</span></p></section>'
+                '<section><h2 class="%s">%s</h2><p class="lede%s" style="margin-top:0">%s</p><p style="margin:18px 0 0"><span class="link a">%s</span> <span class="note" style="margin-left:8px">%s</span></p></section>'
                 '<section><h2 class="%s">%s</h2><div class="cols">%s</div></section>'
-                '<section><p class="lede%s" style="margin:0">%s</p></section>'
-                '<footer><p class="%s">%s</p><p class="note">%s</p></footer>'
+                '<footer><div class="foot-row"><p class="lede%s">%s</p>%s</div><p class="%s">%s</p><p class="note">%s</p></footer>'
                 % (head, kmc.strip(), t["h1"], kmc, t["sub"], kmc, t["cta"], kmc, t["cta_note"], ph, hero_art,
                    kmc.strip(), t["how_h"], steps,
                    kmc.strip(), t["ben_h"], ben,
                    kmc.strip(), t["things_h"], things,
                    kmc.strip(), t["is_h"], kmc, t["is_p"], t["is_link"], t["is_link_note"],
                    kmc.strip(), t["else_h"], elsewhere,
-                   kmc, t["who"],
+                   kmc, t["who"], seg_t,
                    kmc.strip(), t["disc"],
                    ("[ Khmer is our own placeholder until a native reader approves it ]" if lang == "km" else "[ Drawing. This page takes no payments. ]")))
     width = 1440 if size == "desk" else 390

@@ -5,7 +5,7 @@
    "x": 0,
    "y": 0,
    "w": 1440,
-   "h": 2579,
+   "h": 2743,
    "title": "1 · Landing, English, desktop",
    "page": "page-1"
   },
@@ -14,7 +14,7 @@
    "x": 1560,
    "y": 0,
    "w": 390,
-   "h": 3765,
+   "h": 4383,
    "title": "2 · Landing, English, phone",
    "page": "page-1"
   },
@@ -23,7 +23,7 @@
    "x": 2070,
    "y": 0,
    "w": 1440,
-   "h": 2510,
+   "h": 2672,
    "title": "3 · Landing, Khmer, desktop",
    "page": "page-1"
   },
@@ -32,7 +32,7 @@
    "x": 3630,
    "y": 0,
    "w": 390,
-   "h": 3717,
+   "h": 4351,
    "title": "4 · Landing, Khmer, phone",
    "page": "page-1"
   },
@@ -41,7 +41,7 @@
    "x": 4140,
    "y": 0,
    "w": 1440,
-   "h": 2579,
+   "h": 2743,
    "title": "5 · Dark pass, English, desktop",
    "page": "page-1"
   },
@@ -50,7 +50,7 @@
    "x": 5700,
    "y": 0,
    "w": 390,
-   "h": 3717,
+   "h": 4351,
    "title": "6 · Dark pass, Khmer, phone",
    "page": "page-1"
   },
