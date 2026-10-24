@@ -22,7 +22,7 @@ T = {
         "lang": "en", "tag": "English",
         "h1": "Say thank you with money. Keep the thanks.",
         "sub": "HeartBank® Treasury keeps a record of the thank-yous in your family, on top of the accounts you already use.",
-        "cta": "Open the app",
+        "cta": "Open B-Treasury App",
         "share": "Share",
         "cta_note": "You will land at " + APP,
         "how_h": "How a thank-you travels",
@@ -64,7 +64,7 @@ T = {
         "lang": "km", "tag": "ខ្មែរ",
         "h1": "និយាយអរគុណដោយប្រាក់ ហើយរក្សាទុកការអរគុណ",
         "sub": "HeartBank® Treasury រក្សាកំណត់ត្រានៃការអរគុណក្នុងគ្រួសាររបស់អ្នក នៅលើគណនីដែលអ្នកប្រើរួចហើយ។",
-        "cta": "បើកកម្មវិធី",
+        "cta": "បើកកម្មវិធី B-Treasury",
         "cta_note": "អ្នកនឹងទៅដល់ " + APP,
         "how_h": "របៀបដែលការអរគុណធ្វើដំណើរ",
         "how_poster": "វីដេអូរាយាប់អធិប្បាយ៖ ឡើង អរគុណ ឡើងបន្ត",
@@ -138,7 +138,7 @@ T["km"].update({
 T["en"].update({
     "states_h": "Other states",
     "st_login": "/login (still listed by Google)",
-    "login_h": "Looking for the app?", "login_p": "Sign in at thank.heartbank.org.", "login_btn": "Open the app",
+    "login_h": "Looking for the app?", "login_p": "Sign in at thank.heartbank.org.", "login_btn": "Open B-Treasury App",
     "st_nf": "Page not found",
     "nf_h": "That page is not here.", "nf_p": "Try the front page, or open the app.", "nf_home": "Go to the front page",
     "st_copied": "After Share, then Copy link",
@@ -147,7 +147,7 @@ T["en"].update({
 T["km"].update({
     "states_h": "ស្ថានភាពផ្សេងទៀត",
     "st_login": "/login (Google នៅតែបង្ហាញ)",
-    "login_h": "កំពុងរកកម្មវិធីមែនទេ?", "login_p": "ចូលនៅ thank.heartbank.org។", "login_btn": "បើកកម្មវិធី",
+    "login_h": "កំពុងរកកម្មវិធីមែនទេ?", "login_p": "ចូលនៅ thank.heartbank.org។", "login_btn": "បើកកម្មវិធី B-Treasury",
     "st_nf": "រកមិនឃើញទំព័រ",
     "nf_h": "មិនមានទំព័រនេះទេ។", "nf_p": "សូមសាកល្បងទំព័រដើម ឬបើកកម្មវិធី។", "nf_home": "ទៅទំព័រដើម",
     "st_copied": "បន្ទាប់ពីចែករំលែក រួចចម្លងតំណ",
@@ -205,6 +205,7 @@ section{padding:56px 0;border-top:1px solid var(--line)}
 .foot-row{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin:0 0 22px}
 .foot-row p{margin:0}
 .cols{display:grid;gap:16px}.desk .cols{grid-template-columns:repeat(3,1fr);gap:24px}.desk .cols4{grid-template-columns:repeat(4,1fr);gap:20px}
+.nw{white-space:nowrap}
 .sm{font-size:.45em;font-weight:500;vertical-align:.75em;margin-left:.05em;line-height:0}
 .spot{width:100%;height:84px;display:block;margin:0 0 14px;background:var(--wash);border-radius:var(--r-control)}
 .stl{font-family:var(--font-mono);font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-dim);margin:0 0 14px}
@@ -325,10 +326,10 @@ def spot(kind):
     elif kind == "shared":
         parts += [_jar(60, 40), P(22, 42, "#4f7a62", "#b98a63", "#c9c4c0", "grey", .42), P(98, 42, "var(--accent)", "#e0b48a", "#2a1d17", "pigtails", .42)]
     elif kind == "child":
-        parts += [P(34, 38, "var(--accent)", "#e0b48a", "#2a1d17", "pigtails", .8),
-                  '<path d="M76 24 A14 14 0 0 0 76 52 Z" fill="var(--accent)"/>',
-                  '<path d="M80 24 A14 14 0 0 1 80 52 Z" fill="none" stroke="var(--accent)" stroke-width="2.5"/>',
-                  '<path d="M98 38 H112 M106 32 L112 38 L106 44" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>']
+        parts += [P(28, 38, "var(--accent)", "#e0b48a", "#2a1d17", "pigtails", .8),
+                  '<path d="M82 24 A14 14 0 0 0 82 52 Z" fill="var(--accent)"/>',
+                  '<path d="M86 24 A14 14 0 0 1 86 52 Z" fill="none" stroke="var(--accent)" stroke-width="2.5"/>',
+                  '<path d="M104 38 H116 M110 32 L116 38 L110 44" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>']
     elif kind == "charge":
         parts += [P(34, 38, "#c0603f", "#d9a47a", "#2a1d17", "bun", .8), P(80, 44, "#4f7a62", "#b98a63", "#c9c4c0", "grey", .42), P(102, 44, "var(--accent)", "#e0b48a", "#2a1d17", "pigtails", .42)]
     elif kind == "jar":
@@ -356,6 +357,16 @@ def spot(kind):
                   '<path d="M20 30 H100" stroke="var(--accent-ink)" stroke-width="1.5" opacity=".5"/>'
                   '<rect x="52" y="38" width="16" height="20" rx="2" fill="var(--accent)"/>']
     return '<svg class="spot" viewBox="0 0 120 72" role="img" aria-hidden="true">%s</svg>' % "".join(parts)
+
+
+def disc_html(t):
+    """The footer disclaimer, its first sentence held on one line (white-space: nowrap)."""
+    d = t["disc"]
+    for sep in (". ", "។ "):
+        i = d.find(sep)
+        if i > 0:
+            return '<span class="nw">%s</span> %s' % (d[:i + len(sep.strip())], d[i + len(sep):])
+    return d
 
 
 def page(lang, theme, size, kind="landing"):
@@ -407,10 +418,9 @@ def page(lang, theme, size, kind="landing"):
                    kmc.strip(), t["is_h"], kmc, t["is_p"], t["is_link"], t["is_link_note"],
                    kmc.strip(), t["else_h"], elsewhere,
                    kmc, t["who"], seg_t,
-                   kmc.strip(), t["disc"],
+                   kmc.strip(), disc_html(t),
                    ("[ Khmer is our own placeholder until a native reader approves it ]" if lang == "km" else "[ Drawing. This page takes no payments. ]")))
     body = body.replace("\u2120", '<span class="sm">\u2120</span>')
-    body = __import__("re").sub(r'(?<!<sup>)\u00ae', '<span class="sm">\u00ae</span>', body)  # registered marks small too, except the wordmark's own
     width = 1440 if size == "desk" else 390
     return ('<!doctype html>\n<html lang="%s" data-theme="%s">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=%d">\n'
             '<meta name="googlebot" content="noindex,nofollow"><meta name="bingbot" content="noindex,nofollow">\n'
