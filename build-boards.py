@@ -23,6 +23,7 @@ T = {
         "h1": "Say thank you with money. Keep the thanks.",
         "sub": "HeartBank Treasury keeps a record of the thank-yous in your family, on top of the accounts you already use.",
         "cta": "Open the app",
+        "share": "Share",
         "cta_note": "You will land at " + APP,
         "how_h": "How a thank-you travels",
         "how_poster": "Motion explainer: give, thank, give forward",
@@ -31,6 +32,11 @@ T = {
         "ben": ["Every thank-you is written down where your family can see it.",
                 "Money moves between your own accounts. HeartBank never holds it.",
                 "Thanks can be passed on: what you receive, you can give forward."],
+        "why_h": "Why start a Family Kitty\u2120",
+        "why": [("Everyday help gets noticed", "A thank-you for the cooking, the caring and the tidying-up can come with a small amount of real money."),
+                ("One shared place", "The whole family can see thanks going in and coming out."),
+                ("Children learn to pass it on", "When a child is thanked, half is theirs to keep and half is set aside to give forward."),
+                ("You stay in charge", "A parent or guardian opens it, invites the family and decides who joins.")],
         "things_h": "Three things in the app",
         "things": [("Family Kitty℠", "One shared place for a family's thank-yous and gifts."),
                    ("Personal Account℠", "Your own place to give and to receive."),
@@ -50,8 +56,8 @@ T = {
                  "to keep the record of thanks; financial services are not provided by HeartBank."),
         "ph": "",
         "sb_h": "Explainer storyboard",
-        "sb_cap": ["Two homes. One gives.", "The thanks is written in a shared record.", "The receiver passes it on to a third home.", "The ring closes. Thanks keep moving."],
-        "sb_note": "Static equivalent under reduced motion: frame 4. No person, clock, counter or water appears in any frame.",
+        "sb_cap": ["Two people. One gives.", "The thanks is written in a shared record.", "The receiver passes it on to a third person.", "The ring closes. Thanks keep moving."],
+        "sb_note": "Static equivalent under reduced motion: frame 4. The people are drawn figures, never real ones. No clock, counter or water appears in any frame.",
     },
     "km": {
         "lang": "km", "tag": "ខ្មែរ",
@@ -93,12 +99,18 @@ T = {
 # The Khmer above was first composed as \u escapes and came out partly garbled (e.g. ឡើង "go up" for "give").
 # This block REPLACES it with Khmer written directly. It is still OURS and UNREVIEWED: every Khmer board says so.
 T["km"].update({
+    "share": "ចែករំលែក",
     "how_poster": "វីដេអូពន្យល់៖ ឲ្យ អរគុណ ឲ្យបន្ត",
     "steps": ["ម្នាក់ឲ្យ", "ការអរគុណត្រូវបានកត់ទុក", "អាចឲ្យបន្តបាន"],
     "ben_h": "វាធ្វើអ្វីខ្លះ",
     "ben": ["រាល់ការអរគុណត្រូវបានកត់ទុកនៅកន្លែងដែលគ្រួសារអ្នកអាចមើលឃើញ។",
             "ប្រាក់ផ្លាស់ទីរវាងគណនីផ្ទាល់ខ្លួនរបស់អ្នក។ HeartBank មិនកាន់កាប់ប្រាក់ឡើយ។",
             "ការអរគុណអាចឲ្យបន្តបាន៖ អ្វីដែលអ្នកទទួលបាន អ្នកអាចឲ្យបន្តទៀត។"],
+    "why_h": "ហេតុអ្វីបានជាចាប់ផ្តើម Family Kitty℠",
+    "why": [("ជំនួយប្រចាំថ្ងៃត្រូវបានកត់សម្គាល់", "ការអរគុណសម្រាប់ការចម្អិនអាហារ ការថែទាំ និងការរៀបចំសម្អាត អាចភ្ជាប់ជាមួយប្រាក់ពិតបន្តិចបន្តួច។"),
+            ("កន្លែងរួមមួយ", "ក្រុមគ្រួសារទាំងមូលអាចមើលឃើញការអរគុណចូល និងចេញ។"),
+            ("កុមាររៀនឲ្យបន្ត", "ពេលកុមារម្នាក់ត្រូវបានអរគុណ ពាក់កណ្តាលជារបស់កុមារ ហើយពាក់កណ្តាលទៀតត្រូវទុកសម្រាប់ឲ្យបន្ត។"),
+            ("អ្នកជាអ្នកគ្រប់គ្រង", "ឪពុកម្តាយ ឬអាណាព្យាបាលបើកវា អញ្ជើញគ្រួសារ និងសម្រេចថាអ្នកណាចូលរួម។")],
     "things_h": "បីយ៉ាងក្នុងកម្មវិធី",
     "things": [("Family Kitty℠", "កន្លែងរួមមួយសម្រាប់ការអរគុណ និងអំណោយរបស់គ្រួសារ។"),
                ("Personal Account℠", "កន្លែងផ្ទាល់ខ្លួនរបស់អ្នកសម្រាប់ឲ្យ និងទទួល។"),
@@ -115,9 +127,9 @@ T["km"].update({
              "តួនាទីរបស់ HeartBank គឺរក្សាកំណត់ត្រានៃការអរគុណ។"),
     "ph": "ភាសាខ្មែរនេះជាសេចក្តីព្រាងរបស់យើង រង់ចាំការពិនិត្យពីអ្នកភាសាខ្មែរ",
     "sb_h": "ផ្ទាំងរូបរឿងនៃវីដេអូពន្យល់",
-    "sb_cap": ["ផ្ទះពីរ។ មួយឲ្យ។", "ការអរគុណត្រូវបានសរសេរក្នុងកំណត់ត្រារួម។",
-               "អ្នកទទួលឲ្យបន្តទៅផ្ទះទីបី។", "រង្វង់បិទ។ ការអរគុណបន្តធ្វើដំណើរ។"],
-    "sb_note": "ប្រសិនបើបិទចលនា បង្ហាញរូបទី ៤។ គ្មានមនុស្ស នាឡិកា ឧបករណ៍រាប់ ឬទឹកក្នុងរូបណាមួយឡើយ។",
+    "sb_cap": ["មនុស្សពីរនាក់។ ម្នាក់ឲ្យ។", "ការអរគុណត្រូវបានសរសេរក្នុងកំណត់ត្រារួម។",
+               "អ្នកទទួលឲ្យបន្តទៅមនុស្សទីបី។", "រង្វង់បិទ។ ការអរគុណបន្តធ្វើដំណើរ។"],
+    "sb_note": "ប្រសិនបើបិទចលនា បង្ហាញរូបទី ៤។ មនុស្សជារូបគំនូរ មិនមែនមនុស្សពិតទេ។ គ្មាននាឡិកា ឧបករណ៍រាប់ ឬទឹកក្នុងរូបណាមួយឡើយ។",
 })
 
 CSS = """
@@ -170,7 +182,10 @@ section{padding:56px 0;border-top:1px solid var(--line)}
 .step b{display:block;color:var(--accent);font-family:var(--font-display);font-weight:600;font-size:3rem;line-height:1;margin-bottom:6px}
 .foot-row{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin:0 0 22px}
 .foot-row p{margin:0}
-.cols{display:grid;gap:16px}.desk .cols{grid-template-columns:repeat(3,1fr);gap:24px}
+.cols{display:grid;gap:16px}.desk .cols{grid-template-columns:repeat(3,1fr);gap:24px}.desk .cols4{grid-template-columns:repeat(4,1fr);gap:20px}
+.share{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line-strong);border-radius:var(--r-pill);padding:6px 13px;font-size:.85rem;color:var(--ink)}
+.share svg{width:16px;height:16px;flex:none}
+.phone .share{padding:7px 9px}.phone .share .lbl{display:none}
 .card{border:1px solid var(--line);border-radius:var(--r-card);padding:22px;background:var(--surface)}
 .card h3{font-family:var(--font-display);font-size:1.3rem;margin:0 0 6px;font-weight:600}
 .card p{margin:0;color:var(--ink-dim)}
@@ -191,10 +206,26 @@ def mark(lang="en"):
     return ('Heart<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="%s"/></svg>ank<sup>®</sup>' % EMBLEM)
 
 
-def home(cx, cy, s=1.0, fill="var(--accent)"):
-    # a drawn home: roof + body + door; no people
-    return ('<g transform="translate(%s %s) scale(%s)"><path d="M-30 4 L0 -26 L30 4 Z" fill="%s"/><rect x="-22" y="4" width="44" height="30" rx="3" fill="var(--surface-2)" stroke="%s" stroke-width="2"/>'
-            '<rect x="-6" y="16" width="12" height="18" rx="2" fill="%s"/></g>' % (cx, cy, s, fill, fill, fill))
+def person(cx, cy, top, skin, hair, piece, s=1.0):
+    """A DRAWN figure (art, never a real or identifiable person): ground circle, shoulders, head, hair, one piece."""
+    g = ['<g transform="translate(%s %s) scale(%s)">' % (cx, cy, s),
+         '<circle cx="0" cy="0" r="34" fill="var(--surface-2)" stroke="var(--line)" stroke-width="1.5"/>',
+         '<path d="M-23 30 C-23 10 -13 4 0 4 C13 4 23 10 23 30 A34 34 0 0 1 -23 30 Z" fill="%s"/>' % top,
+         '<circle cx="0" cy="-8" r="13" fill="%s"/>' % skin]
+    if piece == "bun":
+        g += ['<path d="M-13 -9 C-13 -24 13 -24 13 -9 C8 -16 -8 -16 -13 -9 Z" fill="%s"/>' % hair, '<circle cx="0" cy="-26" r="6" fill="%s"/>' % hair]
+    elif piece == "grey":
+        g += ['<path d="M-13 -7 C-14 -24 14 -24 13 -7 C9 -15 -9 -15 -13 -7 Z" fill="%s"/>' % hair]
+    else:  # pigtails
+        g += ['<path d="M-13 -8 C-13 -23 13 -23 13 -8 C8 -15 -8 -15 -13 -8 Z" fill="%s"/>' % hair,
+              '<circle cx="-16" cy="-6" r="5" fill="%s"/>' % hair, '<circle cx="16" cy="-6" r="5" fill="%s"/>' % hair]
+    g.append('</g>')
+    return "".join(g)
+
+
+def parent(cx, cy):  return person(cx, cy, "#c0603f", "#d9a47a", "#2a1d17", "bun")
+def elder(cx, cy):   return person(cx, cy, "#4f7a62", "#b98a63", "#c9c4c0", "grey")
+def child(cx, cy):   return person(cx, cy, "var(--accent)", "#e0b48a", "#2a1d17", "pigtails", .9)
 
 
 def flow_svg(frame, w=520, h=230):
@@ -204,9 +235,9 @@ def flow_svg(frame, w=520, h=230):
     arrow = ('<path d="%s" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" marker-end="url(#ar%d)"/>')
     parts = ['<svg viewBox="0 0 %d %d" role="img" aria-hidden="true">' % (w, h)]
     parts.append('<defs><marker id="ar%d" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="var(--accent)"/></marker></defs>' % frame)
-    parts.append(home(*a)); parts.append(home(*c))
+    parts.append(parent(*a)); parts.append(child(*c))
     if frame >= 3:
-        parts.append(home(*b))
+        parts.append(elder(*b))
     parts.append(arrow % ("M128 158 C190 128 330 128 392 158", frame))
     if frame >= 2:
         parts.append('<g transform="translate(260 204)"><rect x="-46" y="-17" width="92" height="34" rx="8" fill="var(--bg)" stroke="var(--accent)" stroke-width="2"/>'
@@ -227,7 +258,9 @@ def page(lang, theme, size, kind="landing"):
     tl = ("Auto", "Light", "Dark") if lang == "en" else ("ស្វ័យប្រវត្តិ", "ភ្លឺ", "ងងឹត")
     seg_t = '<div class="seg%s"><span>%s</span><span%s>%s</span><span%s>%s</span></div>' % (kmc, tl[0], ' class="on"' if theme == "light" else "", tl[1], ' class="on"' if theme == "dark" else "", tl[2])
     ph = ('<p class="note km">[ %s ]</p>' % t["ph"]) if t["ph"] else ""
-    head = ('<header><div class="wordmark">%s</div><div class="tools">%s</div></header>' % (mark(), seg_l))
+    share = ('<span class="share"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M12 3l-4 4M12 3l4 4M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+             '<span class="lbl%s">%s</span></span>' % (kmc, t["share"]))
+    head = ('<header><div class="wordmark">%s</div><div class="tools">%s%s</div></header>' % (mark(), seg_l, share))
     if kind == "storyboard":
         body = ('%s<section class="hero" style="padding-bottom:24px"><h1 class="%s">%s</h1>%s</section><div class="sb">%s</div><p class="note">%s</p>'
                 % (head, kmc.strip(), t["sb_h"], ph,
@@ -237,10 +270,12 @@ def page(lang, theme, size, kind="landing"):
         hero_art = '<div class="art"><div class="poster">%s<p class="note%s" style="margin:0">[ %s ]</p></div></div>' % (flow_svg(4), kmc, t["how_poster"])
         steps = "".join('<div class="step%s">%s<b>%d</b>%s</div>' % (kmc, flow_svg(i + 1), i + 1, s) for i, s in enumerate(t["steps"]))
         ben = "".join('<li class="%s">%s</li>' % (kmc.strip(), b) for b in t["ben"])
+        why = "".join('<div class="card"><h3 class="%s">%s</h3><p class="%s">%s</p></div>' % (kmc.strip(), n, kmc.strip(), d) for n, d in t["why"])
         things = "".join('<div class="card"><h3>%s</h3><p class="%s">%s</p></div>' % (n, kmc.strip(), d) for n, d in t["things"])
         elsewhere = "".join('<div class="card"><h3 class="%s">%s</h3><p class="%s">%s</p><p class="note">%s</p></div>' % (kmc.strip(), n, kmc.strip(), d, h) for n, d, h in t["else"])
         body = ('%s<section class="hero"><div><h1 class="%s">%s</h1><p class="lede%s">%s</p><p style="margin:32px 0 0"><span class="btn%s">%s</span></p><p class="note%s">%s</p>%s</div>%s</section>'
                 '<section><h2 class="%s">%s</h2><div class="steps">%s</div></section>'
+                '<section><h2 class="%s">%s</h2><div class="cols cols4">%s</div></section>'
                 '<section><h2 class="%s">%s</h2><ul class="ben">%s</ul></section>'
                 '<section><h2 class="%s">%s</h2><div class="cols">%s</div></section>'
                 '<section><h2 class="%s">%s</h2><p class="lede%s" style="margin-top:0">%s</p><p style="margin:18px 0 0"><span class="link a">%s</span> <span class="note" style="margin-left:8px">%s</span></p></section>'
@@ -248,6 +283,7 @@ def page(lang, theme, size, kind="landing"):
                 '<footer><div class="foot-row"><p class="lede%s">%s</p>%s</div><p class="%s">%s</p><p class="note">%s</p></footer>'
                 % (head, kmc.strip(), t["h1"], kmc, t["sub"], kmc, t["cta"], kmc, t["cta_note"], ph, hero_art,
                    kmc.strip(), t["how_h"], steps,
+                   kmc.strip(), t["why_h"], why,
                    kmc.strip(), t["ben_h"], ben,
                    kmc.strip(), t["things_h"], things,
                    kmc.strip(), t["is_h"], kmc, t["is_p"], t["is_link"], t["is_link_note"],

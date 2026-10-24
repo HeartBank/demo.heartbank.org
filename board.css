@@ -47,7 +47,10 @@ section{padding:56px 0;border-top:1px solid var(--line)}
 .step b{display:block;color:var(--accent);font-family:var(--font-display);font-weight:600;font-size:3rem;line-height:1;margin-bottom:6px}
 .foot-row{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin:0 0 22px}
 .foot-row p{margin:0}
-.cols{display:grid;gap:16px}.desk .cols{grid-template-columns:repeat(3,1fr);gap:24px}
+.cols{display:grid;gap:16px}.desk .cols{grid-template-columns:repeat(3,1fr);gap:24px}.desk .cols4{grid-template-columns:repeat(4,1fr);gap:20px}
+.share{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line-strong);border-radius:var(--r-pill);padding:6px 13px;font-size:.85rem;color:var(--ink)}
+.share svg{width:16px;height:16px;flex:none}
+.phone .share{padding:7px 9px}.phone .share .lbl{display:none}
 .card{border:1px solid var(--line);border-radius:var(--r-card);padding:22px;background:var(--surface)}
 .card h3{font-family:var(--font-display);font-size:1.3rem;margin:0 0 6px;font-weight:600}
 .card p{margin:0;color:var(--ink-dim)}
