@@ -134,6 +134,26 @@ T["km"].update({
     "sb_note": "ប្រសិនបើបិទចលនា បង្ហាញរូបទី ៤។ មនុស្សជារូបគំនូរ មិនមែនមនុស្សពិតទេ។ គ្មាននាឡិកា ឧបករណ៍រាប់ ឬទឹកក្នុងរូបណាមួយឡើយ។",
 })
 
+
+T["en"].update({
+    "states_h": "Other states",
+    "st_login": "/login (still listed by Google)",
+    "login_h": "Looking for the app?", "login_p": "Sign in at thank.heartbank.org.", "login_btn": "Open the app",
+    "st_nf": "Page not found",
+    "nf_h": "That page is not here.", "nf_p": "Try the front page, or open the app.", "nf_home": "Go to the front page",
+    "st_copied": "After Share, then Copy link",
+    "copied": "Link copied",
+})
+T["km"].update({
+    "states_h": "ស្ថានភាពផ្សេងទៀត",
+    "st_login": "/login (Google នៅតែបង្ហាញ)",
+    "login_h": "កំពុងរកកម្មវិធីមែនទេ?", "login_p": "ចូលនៅ thank.heartbank.org។", "login_btn": "បើកកម្មវិធី",
+    "st_nf": "រកមិនឃើញទំព័រ",
+    "nf_h": "មិនមានទំព័រនេះទេ។", "nf_p": "សូមសាកល្បងទំព័រដើម ឬបើកកម្មវិធី។", "nf_home": "ទៅទំព័រដើម",
+    "st_copied": "បន្ទាប់ពីចែករំលែក រួចចម្លងតំណ",
+    "copied": "បានចម្លងតំណ",
+})
+
 CSS = """
 :root{
   --bg:#ffffff; --surface:#faf5e6; --surface-2:#f3ead0; --line:rgba(20,16,30,.12); --line-strong:rgba(20,16,30,.28);
@@ -187,6 +207,9 @@ section{padding:56px 0;border-top:1px solid var(--line)}
 .cols{display:grid;gap:16px}.desk .cols{grid-template-columns:repeat(3,1fr);gap:24px}.desk .cols4{grid-template-columns:repeat(4,1fr);gap:20px}
 .sm{font-size:.45em;font-weight:500;vertical-align:.75em;margin-left:.05em;line-height:0}
 .spot{width:100%;height:84px;display:block;margin:0 0 14px;background:var(--wash);border-radius:var(--r-control)}
+.stl{font-family:var(--font-mono);font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-dim);margin:0 0 14px}
+.btn2{display:inline-block;border:1px solid var(--line-strong);border-radius:var(--r-control);padding:14px 24px;font-weight:600}
+.toast{display:inline-block;background:var(--ink);color:var(--bg);border-radius:var(--r-pill);padding:10px 20px;font-weight:500}
 .share{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line-strong);border-radius:var(--r-pill);padding:6px 13px;font-size:.85rem;color:var(--ink)}
 .share svg{width:16px;height:16px;flex:none}
 .phone .share{padding:7px 9px}.phone .share .lbl{display:none}
@@ -346,7 +369,17 @@ def page(lang, theme, size, kind="landing"):
     share = ('<span class="share"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M12 3l-4 4M12 3l4 4M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
              '<span class="lbl%s">%s</span></span>' % (kmc, t["share"]))
     head = ('<header><div class="wordmark">%s</div><div class="tools">%s%s</div></header>' % (mark(), seg_l, share))
-    if kind == "storyboard":
+    if kind == "states":
+        k = kmc.strip()
+        body = ('%s%s<section><p class="stl">%s</p><h1 class="%s">%s</h1><p class="lede%s">%s</p><p style="margin:26px 0 0"><span class="btn%s">%s</span></p></section>'
+                '<section><p class="stl">%s</p><h1 class="%s">%s</h1><p class="lede%s">%s</p><p style="margin:26px 0 0;display:flex;gap:12px;flex-wrap:wrap"><span class="btn2%s">%s</span><span class="btn%s">%s</span></p></section>'
+                '<section><p class="stl">%s</p><div style="border:1px solid var(--line);border-radius:var(--r-card);padding:18px;background:var(--surface)"><div style="display:flex;justify-content:flex-end;margin-bottom:16px">%s</div><p style="margin:0;text-align:center"><span class="toast%s">%s</span></p></div></section>'
+                '<footer><p class="note">%s</p></footer>'
+                % (head, ph, t["st_login"], k, t["login_h"], kmc, t["login_p"], kmc, t["login_btn"],
+                   t["st_nf"], k, t["nf_h"], kmc, t["nf_p"], kmc, t["nf_home"], kmc, t["login_btn"],
+                   t["st_copied"], share, kmc, t["copied"],
+                   ("[ Khmer is our own placeholder until a native reader approves it ]" if lang == "km" else "[ Drawing. This page takes no payments. ]")))
+    elif kind == "storyboard":
         body = ('%s<section class="hero" style="padding-bottom:24px"><h1 class="%s">%s</h1>%s</section><div class="sb">%s</div><p class="%s" style="margin:24px 0 0;color:var(--ink-dim)">%s</p><p class="note">%s</p>'
                 % (head, kmc.strip(), t["sb_h"], ph,
                    "".join('<figure>%s<figcaption><b class="mono">%d</b> · <span class="%s">%s</span></figcaption></figure>' % (flow_svg(i + 1), i + 1, kmc.strip(), t["sb_cap"][i]) for i in range(4)),
@@ -395,6 +428,8 @@ BOARDS = [
     ("LandingKmDarkPhone.html", "km", "dark", "phone", "landing", "6 · Dark pass, Khmer, phone"),
     ("ExplainerStoryboard.html", "en", "light", "desk", "storyboard", "7 · Explainer storyboard, English"),
     ("ExplainerStoryboardKm.html", "km", "light", "desk", "storyboard", "8 · Explainer storyboard, Khmer"),
+    ("StatesEn.html", "en", "light", "phone", "states", "9 · Login signpost, not found, link copied, English, phone"),
+    ("StatesKm.html", "km", "light", "phone", "states", "10 · Login signpost, not found, link copied, Khmer, phone"),
 ]
 
 HEIGHTS = {}

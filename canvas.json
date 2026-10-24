@@ -71,6 +71,24 @@
    "h": 996,
    "title": "8 · Explainer storyboard, Khmer",
    "page": "page-1"
+  },
+  {
+   "file": "StatesEn.html",
+   "x": 9330,
+   "y": 0,
+   "w": 390,
+   "h": 1286,
+   "title": "9 · Login signpost, not found, link copied, English, phone",
+   "page": "page-1"
+  },
+  {
+   "file": "StatesKm.html",
+   "x": 9840,
+   "y": 0,
+   "w": 390,
+   "h": 1220,
+   "title": "10 · Login signpost, not found, link copied, Khmer, phone",
+   "page": "page-1"
   }
  ],
  "annotations": [],
