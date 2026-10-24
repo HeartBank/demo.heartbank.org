@@ -21,7 +21,7 @@ T = {
     "en": {
         "lang": "en", "tag": "English",
         "h1": "Say thank you with money. Keep the thanks.",
-        "sub": "HeartBank Treasury keeps a record of the thank-yous in your family, on top of the accounts you already use.",
+        "sub": "HeartBank® Treasury keeps a record of the thank-yous in your family, on top of the accounts you already use.",
         "cta": "Open the app",
         "share": "Share",
         "cta_note": "You will land at " + APP,
@@ -63,7 +63,7 @@ T = {
     "km": {
         "lang": "km", "tag": "ខ្មែរ",
         "h1": "និយាយអរគុណដោយប្រាក់ ហើយរក្សាទុកការអរគុណ",
-        "sub": "HeartBank Treasury រក្សាកំណត់ត្រានៃការអរគុណក្នុងគ្រួសាររបស់អ្នក នៅលើគណនីដែលអ្នកប្រើរួចហើយ។",
+        "sub": "HeartBank® Treasury រក្សាកំណត់ត្រានៃការអរគុណក្នុងគ្រួសាររបស់អ្នក នៅលើគណនីដែលអ្នកប្រើរួចហើយ។",
         "cta": "បើកកម្មវិធី",
         "cta_note": "អ្នកនឹងទៅដល់ " + APP,
         "how_h": "របៀបដែលការអរគុណធ្វើដំណើរ",
@@ -410,6 +410,7 @@ def page(lang, theme, size, kind="landing"):
                    kmc.strip(), t["disc"],
                    ("[ Khmer is our own placeholder until a native reader approves it ]" if lang == "km" else "[ Drawing. This page takes no payments. ]")))
     body = body.replace("\u2120", '<span class="sm">\u2120</span>')
+    body = __import__("re").sub(r'(?<!<sup>)\u00ae', '<span class="sm">\u00ae</span>', body)  # registered marks small too, except the wordmark's own
     width = 1440 if size == "desk" else 390
     return ('<!doctype html>\n<html lang="%s" data-theme="%s">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=%d">\n'
             '<meta name="googlebot" content="noindex,nofollow"><meta name="bingbot" content="noindex,nofollow">\n'
