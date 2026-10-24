@@ -56,8 +56,8 @@ T = {
                  "to keep the record of thanks; financial services are not provided by HeartBank."),
         "ph": "",
         "sb_h": "Explainer storyboard",
-        "sb_cap": ["Two people. One gives money, with a thank-you.", "The thanks is written in a shared record.", "The receiver keeps half and passes half on to a third person.", "The ring closes. Thanks keep moving."],
-        "sb_legend": "Heart: the thank-you. Coin: the money. Card: the shared record. The coin goes straight between people. Nothing in the middle holds it.",
+        "sb_cap": ["A parent thanks a child for tidying up, with a small coin and a thank-you.", "The thanks is written in a shared record.", "The child keeps half and passes half on to a grandparent.", "The thanks moves on to someone new. Thanks keep moving."],
+        "sb_legend": "Heart: the thank-you. Coin: the money. Card: the shared record. The coin goes straight between people. Nothing in the middle holds it. The people are drawn figures, never real ones.",
         "sb_note": "Static equivalent under reduced motion: frame 4. The people are drawn figures, never real ones. No clock, counter or water appears in any frame.",
     },
     "km": {
@@ -128,9 +128,9 @@ T["km"].update({
              "តួនាទីរបស់ HeartBank គឺរក្សាកំណត់ត្រានៃការអរគុណ។"),
     "ph": "ភាសាខ្មែរនេះជាសេចក្តីព្រាងរបស់យើង រង់ចាំការពិនិត្យពីអ្នកភាសាខ្មែរ",
     "sb_h": "ផ្ទាំងរូបរឿងនៃវីដេអូពន្យល់",
-    "sb_legend": "បេះដូង៖ ពាក្យអរគុណ។ កាក់៖ ប្រាក់។ ប័ណ្ណ៖ កំណត់ត្រារួម។ កាក់ទៅដោយផ្ទាល់រវាងមនុស្ស គ្មានអ្វីនៅចន្លោះកាន់វាឡើយ។",
-    "sb_cap": ["មនុស្សពីរនាក់។ ម្នាក់ឲ្យប្រាក់ ជាមួយពាក្យអរគុណ។", "ការអរគុណត្រូវបានសរសេរក្នុងកំណត់ត្រារួម។",
-               "អ្នកទទួលទុកពាក់កណ្តាល ហើយឲ្យពាក់កណ្តាលទៀតបន្តទៅមនុស្សទីបី។", "រង្វង់បិទ។ ការអរគុណបន្តធ្វើដំណើរ។"],
+    "sb_legend": "បេះដូង៖ ពាក្យអរគុណ។ កាក់៖ ប្រាក់។ ប័ណ្ណ៖ កំណត់ត្រារួម។ កាក់ទៅដោយផ្ទាល់រវាងមនុស្ស គ្មានអ្វីនៅចន្លោះកាន់វាឡើយ។ មនុស្សជារូបគំនូរ មិនមែនមនុស្សពិតទេ។",
+    "sb_cap": ["ឪពុកម្តាយអរគុណកូនដែលរៀបចំសម្អាត ដោយកាក់តូចមួយ និងពាក្យអរគុណ។", "ការអរគុណត្រូវបានសរសេរក្នុងកំណត់ត្រារួម។",
+               "កុមារទុកពាក់កណ្តាល ហើយឲ្យពាក់កណ្តាលទៀតបន្តទៅជីដូនជីតា។", "ការអរគុណបន្តទៅមនុស្សថ្មី។ ការអរគុណបន្តធ្វើដំណើរ។"],
     "sb_note": "ប្រសិនបើបិទចលនា បង្ហាញរូបទី ៤។ មនុស្សជារូបគំនូរ មិនមែនមនុស្សពិតទេ។ គ្មាននាឡិកា ឧបករណ៍រាប់ ឬទឹកក្នុងរូបណាមួយឡើយ។",
 })
 
@@ -253,6 +253,7 @@ def person(cx, cy, top, skin, hair, piece, s=1.0):
 
 
 def parent(cx, cy):  return person(cx, cy, "#c0603f", "#d9a47a", "#2a1d17", "bun")
+def friend(cx, cy):  return person(cx, cy, "#6b5b95", "#c99a6e", "#2a1d17", "bun", .95)
 def elder(cx, cy):   return person(cx, cy, "#4f7a62", "#b98a63", "#c9c4c0", "grey")
 def child(cx, cy):   return person(cx, cy, "var(--accent)", "#e0b48a", "#2a1d17", "pigtails", .9)
 
@@ -272,7 +273,7 @@ def _trav(x, y, half=False):
 def flow_svg(frame, w=520, h=230):
     """Frames 1-4 of the explainer; literal attributes only, never dependent on animation.
     A parent (90,172) gives to a child C (430,172); C keeps half and passes half on to an elder B (260,44);
-    B closes the ring back to A. Heart = the thank-you, coin = the money, card = the shared record.
+    B passes it on to a new person D, so it never returns to A. Heart = the thank-you, coin = the money, card = the shared record.
     The coin travels STRAIGHT between people: nothing in the middle holds it."""
     a, b, c = (90, 172), (260, 44), (430, 172)
     def arrow(d, strong=True):
@@ -283,9 +284,11 @@ def flow_svg(frame, w=520, h=230):
     parts.append(parent(*a)); parts.append(child(*c))
     if frame >= 3:
         parts.append(elder(*b))
+    if frame == 4:
+        parts.append(friend(480, 44))
     first = "M128 158 C190 128 330 128 392 158"
     second = "M412 142 C384 112 346 84 308 62"
-    third = "M212 62 C174 84 136 112 108 142"
+    third = "M312 44 C346 30 380 30 408 44"
     parts.append(arrow(first, frame <= 2))
     if frame <= 2:
         parts.append(_trav(260, 136))
@@ -300,7 +303,7 @@ def flow_svg(frame, w=520, h=230):
             parts.append('<path d="M492 158 A11 11 0 0 1 492 180 Z" fill="var(--accent)"/>')  # the half the child keeps
     if frame == 4:
         parts.append(arrow(third))
-        parts.append(_trav(156, 99, half=True))
+        parts.append(_trav(408, 44, half=True))
     parts.append('</svg>')
     return "".join(parts)
 
@@ -452,6 +455,7 @@ EXPLAINER_CSS = """
 .exp-ctl{display:none;margin:0 0 10px;text-align:right}
 .exp.is-live .exp-ctl{display:block}
 .exp-legend{margin:14px 2px 0}
+.exp-end{display:inline-block;margin-top:6px;color:var(--accent);font-weight:600;text-decoration:underline;text-underline-offset:3px}
 .exp-btn{font:inherit;font-size:.85rem;color:var(--ink);background:none;border:1px solid var(--line-strong);border-radius:var(--r-pill);padding:6px 16px;cursor:pointer}
 .exp .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 @media (prefers-reduced-motion:reduce){.exp-caps,.exp-ctl{display:none!important}}
@@ -461,7 +465,7 @@ EXPLAINER_CSS = """
 # (the MP4 export in /motion §7 relies on it). Nothing here counts down, fills, or leaves anyone empty-handed.
 EXPLAINER_JS = r"""
 (function(){var root=document.querySelector('[data-explainer]');if(!root)return;
-var stage=root.querySelector('.exp-stage'),tpl=root.querySelector('template'),caps=[].slice.call(root.querySelectorAll('[data-cap]')),btn=root.querySelector('[data-toggle]');
+var stage=root.querySelector('.exp-stage'),tpl=root.querySelector('template'),caps=[].slice.call(root.querySelectorAll('[data-cap]')),btn=root.querySelector('[data-toggle]'),en=root.querySelector('[data-end]');
 var q=new URLSearchParams(location.search),fixed=q.has('t')?parseFloat(q.get('t')):null,END=@END@,
 reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
 if(reduce&&fixed===null)return; /* the static frame already in the markup IS the reduced-motion frame */
@@ -473,7 +477,7 @@ var drawn=function(e,L,u,o){e.style.strokeDasharray=L;e.style.strokeDashoffset=L
 var O1=pt(pA,LA,1),B0=pt(pB,LB,0),KEEP=[492,169];
 var T=@SCENES@;
 function render(t){
- op($('elder'),P(t,11,12));
+ op($('elder'),P(t,11,12));op($('friend'),P(t,18,19));
  drawn(pA,LA,P(t,1,4),t<11?1:1-.7*P(t,11,12));
  drawn(pB,LB,P(t,12.5,16),t<18?1:1-.7*P(t,18,19));
  drawn(pC,LC,P(t,19,22.5));
@@ -487,6 +491,7 @@ function render(t){
   mv(tr2,x,y);op(tr2,1);
   var k=P(t,12.5,14),sx=O1[0]-15,sy=O1[1];mv(hr,sx+(KEEP[0]-sx)*k,sy+(KEEP[1]-sy)*k,1+.1*k);op(hr,1)}
  else{op(tr2,0);op(hr,0)}
+ if(en){var v=P(t,24,25);en.style.opacity=v;en.style.visibility=v>0?'visible':'hidden'}
  op($('card'),P(t,6,7));drawn($('ln1'),38,P(t,7,8.3));drawn($('ln2'),24,P(t,8.3,9.3));
  var h=P(t,9.5,10.3),ch=$('cardHeart');ch.setAttribute('transform','translate(26 1) scale('+(.85*h)+')');op(ch,h);
  caps.forEach(function(c,i){var s=T[i],o=Math.min(P(t,s[0],s[0]+.5),i===T.length-1?1:1-P(t,s[1]-.5,s[1]));c.style.opacity=t>=s[0]&&t<=s[1]?o:0});
@@ -509,10 +514,10 @@ def explainer_svg_animated():
     stroke = 'fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" marker-end="url(#arA)"'
     return ('<svg viewBox="0 0 520 230" role="img" aria-label="%s">'
             '<defs><marker id="arA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="var(--accent)"/></marker></defs>'
-            '%s%s<g data-id="elder" opacity="0">%s</g>'
+            '%s%s<g data-id="elder" opacity="0">%s</g><g data-id="friend" opacity="0">%s</g>'
             '<path data-id="pA" d="M128 158 C190 128 330 128 392 158" %s opacity="0"/>'
             '<path data-id="pB" d="M412 142 C384 112 346 84 308 62" %s opacity="0"/>'
-            '<path data-id="pC" d="M212 62 C174 84 136 112 108 142" %s opacity="0"/>'
+            '<path data-id="pC" d="M312 44 C346 30 380 30 408 44" %s opacity="0"/>'
             '<g data-id="card" opacity="0" transform="translate(260 204)"><rect x="-46" y="-17" width="92" height="34" rx="8" fill="var(--bg)" stroke="var(--accent)" stroke-width="2"/>'
             '<line data-id="ln1" x1="-32" y1="-4" x2="6" y2="-4" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" opacity="0"/>'
             '<line data-id="ln2" x1="-32" y1="7" x2="-8" y2="7" stroke="var(--line-strong)" stroke-width="3" stroke-linecap="round" opacity="0"/>'
@@ -521,7 +526,7 @@ def explainer_svg_animated():
             '<g data-id="trav2" opacity="0">%s%s<path d="M-15 -10 A10 10 0 0 0 -15 10 Z" fill="var(--accent)"/>%s</g>'
             '<path data-id="halfR" opacity="0" d="M0 -10 A10 10 0 0 1 0 10 Z" fill="var(--accent)"/>'
             '</svg>') % (
-        "{ALT}", parent(*a), child(*c), elder(*b), stroke, stroke, stroke, _heart(0, 0, 1.0),
+        "{ALT}", parent(*a), child(*c), elder(*b), friend(480, 44), stroke, stroke, stroke, _heart(0, 0, 1.0),
         bg % (-15, 0), bg % (15, -3), _coin(-15, 0, 10), _heart(15, -3, 1.5),
         bg % (-15, 0), bg % (15, -3), _heart(15, -3, 1.5))
 
@@ -540,11 +545,11 @@ def explainer_fragment(lang):
     legend = T[lang]["sb_legend"]
     return ('<figure class="exp" data-explainer data-lang="%s">'
             '<div class="exp-ctl"><button type="button" class="exp-btn%s" data-toggle data-l-play="%s" data-l-pause="%s" data-l-replay="%s">%s</button></div>'
-            '<div class="poster"><div class="exp-stage">%s</div><template>%s</template><div class="exp-caps%s" aria-hidden="true">%s</div></div>'
+            '<div class="poster"><div class="exp-stage">%s</div><template>%s</template><div class="exp-caps%s" aria-hidden="true">%s</div><a class="exp-end%s" data-end href="https://thank.heartbank.org/">%s &rarr;</a></div>'
             '<p class="note exp-legend%s">%s</p>'
             '<ol class="sr">%s</ol><style>%s</style><script>%s</script></figure>'
             % (lang, km, st["play"][lang], st["pause"][lang], st["replay"][lang], st["play"][lang],
-               static, explainer_svg_animated().replace("{ALT}", alt), km, caps, km, legend, sr, EXPLAINER_CSS, js))
+               static, explainer_svg_animated().replace("{ALT}", alt), km, caps, km, T[lang]["cta"], km, legend, sr, EXPLAINER_CSS, js))
 
 
 BOARDS = [

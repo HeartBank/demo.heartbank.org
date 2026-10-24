@@ -3,7 +3,7 @@
     "audience": "a layperson (the /build lay-reader default), in English or Khmer",
     "where": "inline on heartbank.org (top of the page, beside the headline) and on demo.heartbank.org/Explainer.html and ExplainerKm.html",
     "length_s": 26,
-    "mechanism": "A coin and a thank-you travel straight between two people while a shared card records the thanks; the receiver keeps half and passes half on."
+    "mechanism": "A parent thanks a child for tidying up with a small coin and a thank-you, travelling straight between them while a shared card records the thanks; the child keeps half and passes half on, and it moves on to someone new, never back."
   },
   "budget": {
     "max_gzip_kb": 12,
@@ -13,20 +13,20 @@
   "static_t": 24,
   "strings": {
     "s1": {
-      "en": "Two people. One gives money, with a thank-you.",
-      "km": "មនុស្សពីរនាក់។ ម្នាក់ឲ្យប្រាក់ ជាមួយពាក្យអរគុណ។"
+      "en": "A parent thanks a child for tidying up, with a small coin and a thank-you.",
+      "km": "ឪពុកម្តាយអរគុណកូនដែលរៀបចំសម្អាត ដោយកាក់តូចមួយ និងពាក្យអរគុណ។"
     },
     "s2": {
       "en": "The thanks is written in a shared record.",
       "km": "ការអរគុណត្រូវបានសរសេរក្នុងកំណត់ត្រារួម។"
     },
     "s3": {
-      "en": "The receiver keeps half and passes half on to a third person.",
-      "km": "អ្នកទទួលទុកពាក់កណ្តាល ហើយឲ្យពាក់កណ្តាលទៀតបន្តទៅមនុស្សទីបី។"
+      "en": "The child keeps half and passes half on to a grandparent.",
+      "km": "កុមារទុកពាក់កណ្តាល ហើយឲ្យពាក់កណ្តាលទៀតបន្តទៅជីដូនជីតា។"
     },
     "s4": {
-      "en": "The ring closes. Thanks keep moving.",
-      "km": "រង្វង់បិទ។ ការអរគុណបន្តធ្វើដំណើរ។"
+      "en": "The thanks moves on to someone new. Thanks keep moving.",
+      "km": "ការអរគុណបន្តទៅមនុស្សថ្មី។ ការអរគុណបន្តធ្វើដំណើរ។"
     },
     "play": {
       "en": "Play",
@@ -41,8 +41,8 @@
       "km": "លេងម្តងទៀត"
     },
     "alt": {
-      "en": "Two people and an elder in a ring: a coin and a heart pass between them while a shared card records the thanks.",
-      "km": "មនុស្សបីនាក់ជារង្វង់៖ កាក់ និងបេះដូងឆ្លងកាត់ពួកគេ ហើយប័ណ្ណរួមកត់ត្រាការអរគុណ។"
+      "en": "A parent, a child, a grandparent and a fourth person: a coin and a heart pass between them while a shared card records the thanks.",
+      "km": "ឪពុកម្តាយ កុមារ ជីដូនជីតា និងមនុស្សទីបួន៖ កាក់ និងបេះដូងឆ្លងកាត់ពួកគេ ហើយប័ណ្ណរួមកត់ត្រាការអរគុណ។"
     }
   },
   "scenes": [
