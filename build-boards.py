@@ -381,8 +381,8 @@ def page(lang, theme, size, kind="landing"):
     return ('<!doctype html>\n<html lang="%s" data-theme="%s">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=%d">\n'
             '<meta name="googlebot" content="noindex,nofollow"><meta name="bingbot" content="noindex,nofollow">\n'
             '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+Khmer:wght@400;500;600&display=swap">\n'
-            '<link rel="stylesheet" href="board.css">\n<style>[hidden]{display:none!important}</style>\n<title>%s</title>\n</head>\n<body>\n<div class="board %s">%s</div>\n</body>\n</html>\n'
-            % (t["lang"], theme, width, "heartbank.org landing (%s, %s, %s)" % (lang, theme, size), cls, body))
+            '<link rel="stylesheet" href="board.css?v=%s">\n<style>[hidden]{display:none!important}</style>\n<title>%s</title>\n</head>\n<body>\n<div class="board %s">%s</div>\n</body>\n</html>\n'
+            % (t["lang"], theme, width, CSSV, "heartbank.org landing (%s, %s, %s)" % (lang, theme, size), cls, body))
 
 
 BOARDS = [
@@ -400,6 +400,9 @@ BOARDS = [
 HEIGHTS = {}
 if os.path.exists(os.path.join(HERE, "heights.json")):
     HEIGHTS = json.load(open(os.path.join(HERE, "heights.json")))
+
+
+CSSV = __import__("hashlib").sha256((CSS.strip() + "\n").encode("utf-8")).hexdigest()[:8]
 
 
 def main():

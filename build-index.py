@@ -3,13 +3,13 @@
 
     python3 build-index.py
 """
-import io, json, os, html
+import hashlib, io, json, os, html
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 c = json.load(io.open(os.path.join(HERE, "canvas.json"), encoding="utf-8"))
 boards = sorted(c["artboards"], key=lambda b: (b["y"], b["x"]))
 rows = "".join(
-    '<li><a href="%s?w=%d">%s</a><span class="m">%d px wide</span></li>' % (b["file"], b["w"], html.escape(b["title"]), b["w"])
+    '<li><a href="%s?v=%s&w=%d">%s</a><span class="m">%d px wide</span></li>' % (b["file"], hashlib.sha256(io.open(os.path.join(HERE, b["file"]), "rb").read()).hexdigest()[:8], b["w"], html.escape(b["title"]), b["w"])
     for b in boards)
 page = """<!doctype html>
 <html lang="en">

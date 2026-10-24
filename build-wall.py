@@ -18,6 +18,11 @@ first = pages[0]["id"]
 
 def page_of(o): return o.get("page", first)
 
+import hashlib as _hl
+def _vhash(name):
+    return _hl.sha256(io.open(os.path.join(HERE, name), "rb").read()).hexdigest()[:8]
+
+
 frames, tabs = [], []
 for p in pages:
     pid = p["id"]
@@ -30,7 +35,7 @@ for p in pages:
             '<a class="frame" href="{f}" target="_blank" style="left:{x}px;top:{y}px;width:{w}px;height:{h}px">'
             '<span class="cap">{t}</span>'
             '<iframe data-src="{f}" width="{w}" height="{h}" loading="lazy" title="{t}" scrolling="no"></iframe>'
-            '</a>'.format(f=html.escape(b["file"]), x=b["x"], y=b["y"], w=b["w"], h=b["h"],
+            '</a>'.format(f=html.escape(b["file"]) + "?v=" + _vhash(b["file"]), x=b["x"], y=b["y"], w=b["w"], h=b["h"],
                           t=html.escape(b.get("title", b["file"]))))
     for n in [n for n in notes if page_of(n) == pid]:
         items.append('<div class="note" style="left:{x}px;top:{y}px;width:{w}px">{t}</div>'.format(
