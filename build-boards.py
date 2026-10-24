@@ -178,7 +178,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:26p
 .wordmark svg{width:var(--emblem-box);height:var(--emblem-box);color:var(--accent);vertical-align:baseline;
   margin-top:calc(var(--emblem-box)*-.09312);margin-bottom:calc(var(--emblem-box)*-.15333);
   margin-left:calc(var(--emblem-box)*-.15343 + 1px);margin-right:calc(var(--emblem-box)*-.09312 - 1px)}
-.wordmark sup{font-size:.72em;font-weight:500;vertical-align:.42em;margin-left:.05em;line-height:0}
+.wordmark sup{font-size:.72em;font-weight:500;vertical-align:-.27em;margin-left:.05em;line-height:0}
 .tools{display:flex;gap:8px;align-items:center}
 .seg{display:inline-flex;border:1px solid var(--line-strong);border-radius:var(--r-pill);padding:3px;font-size:.8rem}
 .seg span{padding:5px 12px;border-radius:var(--r-pill);color:var(--ink-dim)}
