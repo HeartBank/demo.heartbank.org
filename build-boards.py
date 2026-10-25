@@ -12,6 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 
 # The brand layer, vendored under brand/ and guarded by scripts/check-brand.mjs: the emblem, the neutrals and the beat are
 # READ from it (brand.py), never typed here (founder 2026-10-24). Only the domain's accent block below is this surface's own.
+import sys
+sys.path.insert(0, HERE)  # pages.py in the landing loads this file by path, so HERE is not on sys.path
 from brand import EMBLEM, tok
 
 APP = "thank.heartbank.org"
@@ -321,7 +323,10 @@ def flow_svg(frame, w=520, h=230):
 
 
 def _heart(cx, cy, k=1.0, fill="var(--accent)"):
-    return ('<path transform="translate(%s %s) scale(%s)" d="M0 8 C-9 1 -8 -7 -3 -7 C-1 -7 0 -5.5 0 -4.5 C0 -5.5 1 -7 3 -7 C8 -7 9 1 0 8Z" fill="%s"/>' % (cx, cy, k, fill))
+    """Every heart in a drawing is the B-Emblem (the bistable heart), never a stock heart (founder 2026-10-24).
+    Centered on (cx, cy) at the old heart's width at k=1; the offsets are the path's bbox centre, from brand.json mark.geometry
+    (it fills 75.34% of its 24 box, off-centre), so never eyeball them."""
+    return ('<path transform="translate(%s %s) scale(%s) translate(-12.7237 -11.2776)" d="%s" fill="%s"/>' % (cx, cy, k, EMBLEM, fill))
 
 
 def _coin(cx, cy, r=8):
