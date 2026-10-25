@@ -272,10 +272,13 @@ def elder(cx, cy):   return person(cx, cy, "#4f7a62", "#b98a63", "#c9c4c0", "gre
 def child(cx, cy):   return person(cx, cy, "var(--accent)", "#e0b48a", "#2a1d17", "pigtails", .9)
 
 
+PILL = '<rect x="%s" y="%s" width="55" height="28" rx="14" fill="var(--surface)"/>'
+
+
 def _trav(x, y, half=False):
     """What travels on an arrow: a heart (the thank-you) and a coin (the money), or half a coin."""
-    bg = '<circle cx="%s" cy="%s" r="15" fill="var(--surface)"/>'
-    out = [bg % (x - 15, y), bg % (x + 15, y - 3)]
+    bg = '<circle cx="%s" cy="%s" r="12" fill="var(--surface)"/>'
+    out = [PILL % (x - 27, y - 16)]  # ONE eraser under coin + heart, so the arrow is cut once and leaves no stubs
     if half:
         out.append('<path d="M%s %s A10 10 0 0 0 %s %s Z" fill="var(--accent)"/>' % (x - 15, y - 10, x - 15, y + 10))
     else:
@@ -528,7 +531,7 @@ if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es
 
 def explainer_svg_animated():
     a, b, c = (90, 172), (260, 44), (430, 172)
-    bg = '<circle cx="%s" cy="%s" r="15" fill="var(--surface)"/>'
+    bg = '<circle cx="%s" cy="%s" r="12" fill="var(--surface)"/>'
     stroke = 'fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" marker-end="url(#arA)"'
     return ('<svg viewBox="0 0 520 230" role="img" aria-label="%s">'
             '<defs><marker id="arA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="var(--accent)"/></marker></defs>'
@@ -545,8 +548,8 @@ def explainer_svg_animated():
             '<path data-id="halfR" opacity="0" d="M0 -10 A10 10 0 0 1 0 10 Z" fill="var(--accent)"/>'
             '</svg>') % (
         "{ALT}", parent(*a), child(*c), elder(*b), friend(480, 44), stroke, stroke, stroke, _heart(0, 0, 1.0),
-        bg % (-15, 0), bg % (15, -3), _coin(-15, 0, 10), _heart(15, -3, 1.5),
-        bg % (-15, 0), bg % (15, -3), _heart(15, -3, 1.5))
+        PILL % (-27, -16), "", _coin(-15, 0, 10), _heart(15, -3, 1.5),
+        PILL % (-27, -16), "", _heart(15, -3, 1.5))
 
 
 def explainer_fragment(lang):
