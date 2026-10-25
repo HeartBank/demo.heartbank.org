@@ -324,9 +324,9 @@ def flow_svg(frame, w=520, h=230):
 
 def _heart(cx, cy, k=1.0, fill="var(--accent)"):
     """Every heart in a drawing is the B-Emblem (the bistable heart), never a stock heart (founder 2026-10-24).
-    Centered on (cx, cy) at the old heart's width at k=1; the offsets are the path's bbox centre, from brand.json mark.geometry
+    Centered on (cx, cy), drawn at .8 of the old heart's width at k=1 (the emblem is a full square, so at 1.0 it read too big); the offsets are the path's bbox centre, from brand.json mark.geometry
     (it fills 75.34% of its 24 box, off-centre), so never eyeball them."""
-    return ('<path transform="translate(%s %s) scale(%s) translate(-12.7237 -11.2776)" d="%s" fill="%s"/>' % (cx, cy, k, EMBLEM, fill))
+    return ('<path transform="translate(%s %s) scale(%s) translate(-12.7237 -11.2776)" d="%s" fill="%s"/>' % (cx, cy, round(k * .8, 3), EMBLEM, fill))
 
 
 def _coin(cx, cy, r=8):
