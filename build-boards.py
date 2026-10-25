@@ -57,8 +57,8 @@ T = {
         "ph": "",
         "sb_h": "Explainer storyboard",
         "sb_cap": ["A parent thanks a child for tidying up, with a small coin and a thank-you.", "The thanks is written in a shared record.", "The child keeps half and passes half on to a grandparent.", "The thanks moves on to someone new. Thanks keep moving."],
-        "sb_legend": "Heart: the thank-you. Coin: the money. Card: the shared record. The coin goes straight between people. Nothing in the middle holds it. The people are drawn figures, never real ones.",
-        "sb_note": "Static equivalent under reduced motion: frame 4. The people are drawn figures, never real ones. No clock, counter or water appears in any frame.",
+        "sb_legend": "Heart: the thank-you. Coin: the money. Card: the shared record. The coin goes straight between people. Nothing in the middle holds it.",
+        "sb_note": "Static equivalent under reduced motion: frame 4. No clock, counter or water appears in any frame.",
     },
     "km": {
         "lang": "km", "tag": "ខ្មែរ",
@@ -231,8 +231,8 @@ footer p{margin:0 0 14px}
 """
 
 
-def mark(lang="en"):
-    return ('Heart<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="%s"/></svg>ank<sup>®</sup>' % EMBLEM)
+def mark(lang="en", beating=False):
+    return ('Heart<svg%s viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="%s"/></svg>ank<sup>®</sup>' % (' class="beating"' if beating else "", EMBLEM))
 
 
 def person(cx, cy, top, skin, hair, piece, s=1.0):
