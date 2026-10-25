@@ -8,7 +8,8 @@ the point: a second editable copy of these files is what drifts.
 
     python3 build-wall.py
 """
-import io, json, os, html
+import io, json, os, html, re
+from brand import tok
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 d = json.load(io.open(os.path.join(HERE, "canvas.json"), encoding="utf-8"))
@@ -57,9 +58,9 @@ out = """<!doctype html>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
   :root{
-    --bg:#fcfbfe; --surface:#f4f1fb; --surface-2:#ebe7f5;
-    --line:rgba(20,16,30,.12); --line-strong:rgba(20,16,30,.28);
-    --ink:#16141c; --ink-dim:#5b5766; --ink-faint:#8b8796;
+    --bg:@L_BG@; --surface:@L_SURFACE@; --surface-2:@L_SURFACE_2@;
+    --line:@L_LINE@; --line-strong:@L_LINE_STRONG@;
+    --ink:@L_INK@; --ink-dim:@L_INK_DIM@; --ink-faint:@L_INK_FAINT@;
     --accent:#15803d; --accent-soft:#106430; --accent-ink:#fff;
     --accent-wash:rgba(16,100,48,.10); --accent-edge:rgba(16,100,48,.25);
     --font-display:"Newsreader",Georgia,serif;
@@ -67,9 +68,9 @@ out = """<!doctype html>
     --font-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
   }
   @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-    --bg:#0a0a0f; --surface:#17171d; --surface-2:#1f1f27;
-    --line:rgba(255,255,255,.08); --line-strong:rgba(255,255,255,.18);
-    --ink:#f5f5f7; --ink-dim:#9b9ba5; --ink-faint:#6b6b76;
+    --bg:@D_BG@; --surface:@D_SURFACE@; --surface-2:@D_SURFACE_2@;
+    --line:@D_LINE@; --line-strong:@D_LINE_STRONG@;
+    --ink:@D_INK@; --ink-dim:@D_INK_DIM@; --ink-faint:@D_INK_FAINT@;
     --accent:#3fa564; --accent-soft:#96c6a8; --accent-ink:#08130c;
     --accent-wash:rgba(63,165,100,.14); --accent-edge:rgba(63,165,100,.32);
   }}
@@ -201,6 +202,10 @@ out = """<!doctype html>
 </body>
 </html>
 """
+for _p in "LD":
+    for _k in ("bg", "surface", "surface-2", "line", "line-strong", "ink", "ink-dim", "ink-faint"):
+        out = out.replace("@%s_%s@" % (_p, _k.upper().replace("-", "_")), tok("%s-%s" % (_p.lower(), _k)))
+assert not re.search(r"@[LD]_[A-Z_0-9]+@", out), "unfilled brand placeholder"
 out = out.replace("__TABS__", "".join(tabs)).replace("__PAGES__", "".join(frames))
 io.open(os.path.join(HERE, "wall.html"), "w", encoding="utf-8").write(out)
 print("wall.html written — %d artboards, %d notes, %d pages" % (len(boards), len(notes), len(pages)))
