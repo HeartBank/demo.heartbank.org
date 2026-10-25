@@ -10,18 +10,9 @@ import io, json, os, re
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
-# The brand layer, vendored under brand/ and hash-guarded by scripts/check-brand.mjs: the emblem, the neutrals and the beat
-# are READ from it, never typed here (founder 2026-10-24). Only the domain's accent block below is this surface's own.
-EMBLEM = io.open(os.path.join(HERE, "brand", "emblem.path.txt"), encoding="utf-8").read().strip()
-_TOK = io.open(os.path.join(HERE, "brand", "tokens.css"), encoding="utf-8").read()
-
-
-def tok(name):
-    m = re.search(r"^\s*--%s:\s*([^;]+);" % re.escape(name), _TOK, re.M)
-    if not m:
-        raise SystemExit("build-boards: brand/tokens.css has no --%s; sync the brand layer" % name)
-    return re.sub(r"\s+", "", m.group(1))
-
+# The brand layer, vendored under brand/ and guarded by scripts/check-brand.mjs: the emblem, the neutrals and the beat are
+# READ from it (brand.py), never typed here (founder 2026-10-24). Only the domain's accent block below is this surface's own.
+from brand import EMBLEM, tok
 
 APP = "thank.heartbank.org"
 

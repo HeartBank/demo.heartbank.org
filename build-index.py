@@ -4,6 +4,7 @@
     python3 build-index.py
 """
 import hashlib, io, json, os, html
+from brand import tok
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 c = json.load(io.open(os.path.join(HERE, "canvas.json"), encoding="utf-8"))
@@ -35,8 +36,8 @@ page = """<!doctype html>
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#9a6f0b">
 <style>[hidden]{display:none!important}
-:root{--bg:#fff;--fg:#16141c;--dim:#5b5766;--line:rgba(20,16,30,.14);--acc:#9a6f0b}
-@media (prefers-color-scheme:dark){:root{--bg:#0a0a0f;--fg:#f4f2f8;--dim:#b4b0c0;--line:rgba(255,255,255,.16);--acc:#f0b429}}
+:root{--bg:@L_BG@;--fg:@L_INK@;--dim:@L_INK_DIM@;--line:@L_LINE@;--acc:#9a6f0b}
+@media (prefers-color-scheme:dark){:root{--bg:@D_BG@;--fg:@D_INK@;--dim:@D_INK_DIM@;--line:@D_LINE@;--acc:#f0b429}}
 body{margin:0;padding:2.5rem 16px 4rem;background:var(--bg);color:var(--fg);font:1rem/1.6 system-ui,sans-serif}
 main{max-width:36rem;margin:0 auto}
 h1{font-size:1.9rem;line-height:1.2;margin:0 0 .5rem}
@@ -59,6 +60,9 @@ small{display:block;margin-top:2rem;color:var(--dim)}</style>
 </body>
 </html>
 """ % rows
+for _p, _k in (("L", "bg"), ("L", "ink"), ("L", "ink-dim"), ("L", "line"), ("D", "bg"), ("D", "ink"), ("D", "ink-dim"), ("D", "line")):
+    page = page.replace("@%s_%s@" % (_p, _k.upper().replace("-", "_")), tok("%s-%s" % (_p.lower(), _k)))
+assert "@L_" not in page and "@D_" not in page, "unfilled brand placeholder"
 io.open(os.path.join(HERE, "index.html"), "w", encoding="utf-8").write(page)
 print("index.html written: %d artboards" % len(boards))
 
