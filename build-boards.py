@@ -6,14 +6,22 @@ Khmer below is OURS and marked as a placeholder on every board until a native re
 
     python3 build-boards.py && python3 build-index.py && python3 build-wall.py
 """
-import io, json, os
+import io, json, os, re
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
-EMBLEM = ("M3.9743 20.0257L3.8824 18.0670C3.5430 11.1232 3.3167 6.5411 5.9896 3.8683C8.1675 "
-          "1.6904 11.5899 1.6904 13.7678 3.8683C14.9981 5.0986 15.6062 6.8523 15.4719 8.5281C17.1477 "
-          "8.3938 18.9014 9.0019 20.1317 10.2322C22.3096 12.4101 22.3096 15.8325 20.1317 18.0104C17.4589 "
-          "20.6833 12.8768 20.4570 5.9260 20.1247L3.9743 20.0257Z")
+# The brand layer, vendored under brand/ and hash-guarded by scripts/check-brand.mjs: the emblem, the neutrals and the beat
+# are READ from it, never typed here (founder 2026-10-24). Only the domain's accent block below is this surface's own.
+EMBLEM = io.open(os.path.join(HERE, "brand", "emblem.path.txt"), encoding="utf-8").read().strip()
+_TOK = io.open(os.path.join(HERE, "brand", "tokens.css"), encoding="utf-8").read()
+
+
+def tok(name):
+    m = re.search(r"^\s*--%s:\s*([^;]+);" % re.escape(name), _TOK, re.M)
+    if not m:
+        raise SystemExit("build-boards: brand/tokens.css has no --%s; sync the brand layer" % name)
+    return re.sub(r"\s+", "", m.group(1))
+
 
 APP = "thank.heartbank.org"
 
@@ -154,17 +162,30 @@ T["km"].update({
     "copied": "បានចម្លងតំណ",
 })
 
+def brand_css(css):
+    for k in ("bg", "surface", "surface-2", "line", "line-strong", "ink", "ink-dim"):
+        for p in ("l", "d"):
+            css = css.replace("@%s_%s@" % (p.upper(), k.upper().replace("-", "_")), tok("%s-%s" % (p, k)))
+    for k in ("duration", "delay"):
+        css = css.replace("@BEAT_%s@" % k.upper(), tok("beat-" + k))
+    assert not re.search(r"@[A-Z_0-9]+@", css), "unfilled brand placeholder"
+    return css
+
+
 CSS = """
 :root{
-  --bg:#ffffff; --surface:#faf5e6; --surface-2:#f3ead0; --line:rgba(20,16,30,.12); --line-strong:rgba(20,16,30,.28);
-  --ink:#16141c; --ink-dim:#5b5766; --accent:#9a6f0b; --accent-ink:#ffffff; --wash:rgba(154,111,11,.10); --edge:rgba(154,111,11,.28);
+  --bg:@L_BG@; --surface:@L_SURFACE@; --surface-2:@L_SURFACE_2@; --line:@L_LINE@; --line-strong:@L_LINE_STRONG@;
+  --ink:@L_INK@; --ink-dim:@L_INK_DIM@; --beat-duration:@BEAT_DURATION@; --beat-delay:@BEAT_DELAY@;
+  /* this surface's own: the domain's accent (the layer declares it per site) */
+  --accent:#9a6f0b; --accent-ink:#ffffff; --wash:rgba(154,111,11,.10); --edge:rgba(154,111,11,.28);
   --font-display:"Newsreader",Georgia,serif; --font-text:"IBM Plex Sans",ui-sans-serif,system-ui,sans-serif;
   --font-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace; --font-khmer:"Noto Sans Khmer",sans-serif;
   --r-card:1.25rem; --r-control:1rem; --r-pill:999px;
 }
 [data-theme="dark"]{
-  --bg:#0a0a0f; --surface:#17171d; --surface-2:#22222a; --line:rgba(255,255,255,.14); --line-strong:rgba(255,255,255,.32);
-  --ink:#f4f2f8; --ink-dim:#b4b0c0; --accent:#f0b429; --accent-ink:#16141c; --wash:rgba(240,180,41,.10); --edge:rgba(240,180,41,.32);
+  --bg:@D_BG@; --surface:@D_SURFACE@; --surface-2:@D_SURFACE_2@; --line:@D_LINE@; --line-strong:@D_LINE_STRONG@;
+  --ink:@D_INK@; --ink-dim:@D_INK_DIM@;
+  --accent:#f0b429; --accent-ink:#16141c; --wash:rgba(240,180,41,.10); --edge:rgba(240,180,41,.32);
 }
 *{box-sizing:border-box}
 html,body{margin:0}
@@ -579,7 +600,7 @@ CSSV = __import__("hashlib").sha256((CSS.strip() + "\n").encode("utf-8")).hexdig
 
 
 def main():
-    io.open(os.path.join(HERE, "board.css"), "w", encoding="utf-8").write(CSS.strip() + "\n")
+    io.open(os.path.join(HERE, "board.css"), "w", encoding="utf-8").write(brand_css(CSS).strip() + "\n")
     artboards, x, y = [], 0, 0
     for f, lang, theme, size, kind, title in BOARDS:
         io.open(os.path.join(HERE, f), "w", encoding="utf-8").write(page(lang, theme, size, kind))

@@ -1,13 +1,16 @@
 :root{
-  --bg:#ffffff; --surface:#faf5e6; --surface-2:#f3ead0; --line:rgba(20,16,30,.12); --line-strong:rgba(20,16,30,.28);
-  --ink:#16141c; --ink-dim:#5b5766; --accent:#9a6f0b; --accent-ink:#ffffff; --wash:rgba(154,111,11,.10); --edge:rgba(154,111,11,.28);
+  --bg:#fcfbfe; --surface:#f4f1fb; --surface-2:#ebe7f5; --line:rgba(20,16,30,0.12); --line-strong:rgba(20,16,30,0.28);
+  --ink:#16141c; --ink-dim:#5b5766; --beat-duration:1.5s; --beat-delay:0s;
+  /* this surface's own: the domain's accent (the layer declares it per site) */
+  --accent:#9a6f0b; --accent-ink:#ffffff; --wash:rgba(154,111,11,.10); --edge:rgba(154,111,11,.28);
   --font-display:"Newsreader",Georgia,serif; --font-text:"IBM Plex Sans",ui-sans-serif,system-ui,sans-serif;
   --font-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace; --font-khmer:"Noto Sans Khmer",sans-serif;
   --r-card:1.25rem; --r-control:1rem; --r-pill:999px;
 }
 [data-theme="dark"]{
-  --bg:#0a0a0f; --surface:#17171d; --surface-2:#22222a; --line:rgba(255,255,255,.14); --line-strong:rgba(255,255,255,.32);
-  --ink:#f4f2f8; --ink-dim:#b4b0c0; --accent:#f0b429; --accent-ink:#16141c; --wash:rgba(240,180,41,.10); --edge:rgba(240,180,41,.32);
+  --bg:#0a0a0f; --surface:#17171d; --surface-2:#1f1f27; --line:rgba(255,255,255,0.08); --line-strong:rgba(255,255,255,0.18);
+  --ink:#f5f5f7; --ink-dim:#9b9ba5;
+  --accent:#f0b429; --accent-ink:#16141c; --wash:rgba(240,180,41,.10); --edge:rgba(240,180,41,.32);
 }
 *{box-sizing:border-box}
 html,body{margin:0}
